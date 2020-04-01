@@ -1,0 +1,71 @@
+{% extends 'index.njk' %}
+
+{% block head %}
+    <title>{{ recipe.title }}
+        - Foodfy</title>
+{% endblock %}
+
+{% block content %}
+    <section class="recipes container">
+        <h1 class="fontezero">{{ recipe.title }}</h1>
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px;">
+            <p  style="font-size:18px; font-weight:bold;"><strong>Receita: {{ recipe.title }}</strong></p>
+            
+            <a class="item_button" href="/admin/recipes/{{ recipe.id }}/edit">Editar Receita</a>
+        </div>
+        <div class="wrapper_recipe">
+            <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
+        </div>
+        <div class="recipe_title">
+            <p>{{ recipe.title }}</p>
+        </div>
+        <div class="recipe_info">
+            <p>{{ recipe.chef_name }}</p>
+        </div>
+    </section>
+
+    <article class="container recipe_section">
+        <div class="recipe_head">
+            <h1>Ingredientes</h1>
+            <button>Esconder</button>
+        </div>
+        <div class="container recipe_content active">
+            <ul>
+                {% for recipes in recipe.ingredients %}
+                    <li class="">{{ recipes }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </article>
+    <article class="container recipe_section">
+        <div class="recipe_head">
+            <h1>Modo de Preparo</h1>
+            <button>Esconder</button>
+        </div>
+        <div class="container recipe_content active">
+            <ul>
+
+                {% for recipes in recipe.preparation %}
+                    <li class="">{{ recipes }}</li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </article>
+    <article class="container recipe_section ">
+        <div class="recipe_head">
+            <h1>Informações Adicionais</h1>
+            <button>Esconder</button>
+        </div>
+        <div class="recipe_content active">
+            <p>{{recipe.information }}</p>
+
+        </div>
+    </article>
+
+{% endblock %}
+
+{% block script %}
+    <script src="/recipe.js"></script>
+{% endblock %}

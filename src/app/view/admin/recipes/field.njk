@@ -1,0 +1,73 @@
+<div class="item">
+    <div>Imagem da receita</div>
+    <div>
+      <input 
+      id="photos-upload"
+      type="file"
+      multiple 
+      accept="image/*"
+      >
+      <div class="photo-upload__send">
+        <i class="material-icons" style="color:#777;">add</i>
+      </div>
+    </div>
+</div>
+<div class="item">
+    <div>Título da Receita</div>
+    <div><input type="text" name="title" value="{{ recipe.title }}"></div>
+</div>
+<div class="item">
+    <div>Chef</div>
+    <div>
+      <select name="chefs">
+        {% for chef in chefs %}
+          <option 
+          value="{{ chef.id }}" 
+          {% if chef.id == recipe.chef_id %}
+            select
+          {% endif %}
+          >
+          {{ chef.name }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+</div>
+<div class="item" id="ingredients">
+  <div>Ingredientes</div>
+    <div class="ingredient">
+      <input
+        type="text"
+        name="ingredients[]"
+        value="{{ recipe.ingredients }}"
+      />
+    </div>
+</div>
+<button type="button" class="add-ingredient">Adicionar novo Ingredientes</button>
+<div class="item" id="preparation">
+    <div>Modo de preparo</div>
+      <div class="preparation">
+        <input 
+        type="text" 
+        name="preparation[]" 
+        value="{{ recipe.preparation }}" />
+      </div>
+</div>
+<button type="button" class="add-preparation">Adicionar novo Ingredientes</button>
+
+<div class="item">
+    <div>Informações Adicionais <span>*opcional</span> </div>
+    <div>
+      <textarea 
+      type="text" 
+      name="information" 
+      value="{{ recipe.additionalInfos }}"
+      style="
+      width:940px;
+      height:257px;
+      border: 1px solid #DDDDDD;
+      "
+      ></textarea>
+
+</div>
+

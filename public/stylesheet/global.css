@@ -1,0 +1,117 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+
+}
+.fontezero{font-size: 0em;}
+
+body {
+  display: flex;
+  flex-direction: column;
+  
+  background-color: var(--color-white);
+  font-size: 16px;
+  color: var(--color-black);
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+img{
+    max-width: 100%;
+}
+a{
+  text-decoration: none !important;
+}
+
+/* FOOTER */
+footer {
+  background: #eeeeee;
+  margin-top: auto;
+  padding: var(--space-20px) 0;
+}
+
+footer p {
+  font-size: var(--font-size-14px);
+  color: #999999;
+  text-align: center;
+}
+
+/* button e inputs */
+input , select {
+  box-sizing: border-box;
+  background: #FFFFFF;
+
+  border: 1px solid #DDDDDD;
+  border-radius: 4px;
+  border-radius: 4px;
+
+  padding: 8px;
+  margin: 0;
+}
+
+button,
+.item_button{
+  box-sizing: border-box;
+  background: var(--color-purple);
+  color: var(--color-white);
+  
+  padding: 10px 10px !important;
+  cursor: pointer;
+  
+  border: none;
+  border-radius: 4px;
+  border-radius: 4px;
+}
+
+button:hover,
+.item_button:hover {
+  filter: brightness(125%);
+}
+.item_new-recipes{/* button para se cadastrar */
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between !important;
+}
+
+/* PAGINAÇÃO */
+.pagination-container {
+  display: grid;
+  align-items: end;
+
+  margin-top: 30%;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 10px;
+}
+.pagination a,
+.pagination span {
+  box-sizing: border-box;
+  padding: 7px 9px;
+
+  border-radius: 10px;
+
+  background-color: var(--color-purple);
+  color: var(--color-footer-bg);
+  margin-right: 5px;
+}
+.pagination a:hover {
+  filter: brightness(125%);
+}

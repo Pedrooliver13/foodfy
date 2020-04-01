@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        {% block head %}
+            <title>Foodfy - As Melhores Receitas!</title>
+        {% endblock %}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+        <!-- CLASSE PAI -->
+        <link rel="stylesheet" href="/stylesheet/style.css">
+        {# GLOBAL CSS #}
+        <link rel="stylesheet" href="/stylesheet/global.css">
+        <link rel="stylesheet" href="/stylesheet/gerenciar.css">
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <div class="main_logo">
+                    <h1 class="fontezero">
+                        <a href="/">
+                            <img src="/../assets/logo (2).png" alt="FoodFy">
+                            FoodFy - As Melhores Receitas
+                        </a>
+                    </h1>
+                </div>
+                <!-- /LOGO -->
+
+                <div class="main_menu">
+                    <a href="/sobre">Sobre</a>
+                    <a href="/recipes">Receitas</a>
+                    <a href="/chefs">Chefs</a>
+                </div>
+                <!-- /MENU -->
+                <div>
+                {% block inputSeach %}
+                   {% include "././admin/recipes/input-recipes.njk" %}
+                {% endblock inputSeach %}
+                </div>
+            </div>
+        </header>
+        <!-- /CONTAINER -->
+
+        {% block content %}{% endblock %}
+
+        
+
+        <footer class="container-fluid">
+            <p>&copy;2019 2020 - Todos os Direitos Reservados, receitas FoodFy</p>
+        </footer>
+
+        <script src="/script.js"></script>
+        <script src="/recipe.js"></script>
+
+    </body>
+</html>

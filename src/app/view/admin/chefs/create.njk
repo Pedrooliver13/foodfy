@@ -1,0 +1,30 @@
+{% extends "index.njk" %}
+
+{% block inputSeach %}
+    {% include "./input-chefs.njk" %}
+{% endblock inputSeach %}
+
+{% block content %}
+    <section class="form-recipe container" >
+        <form action="/chefs" method="POST">
+            <div class="item_form-menu">
+                <div>
+                    <h3>Criando chef</h3>
+                </div>
+
+                <div>
+                    <button
+                    type="submit"
+                    >
+                    Salvar chef
+                    </button>
+                </div>
+            </div>    
+        
+           {% include "././field.njk" %}
+            
+        </form>
+    </section>
+
+    <script src="/create.js"></script>
+{% endblock content %}

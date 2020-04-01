@@ -1,0 +1,33 @@
+{% extends "index.njk" %}
+
+{% block head %}
+    <title>Foodfy - Gerenciando Receitas</title>
+{% endblock head %}
+
+{% block content %}
+    <section class="container">
+        <h3>Gerenciar receitas</h3>
+        <div class="cards_gerenciar">
+        
+            {% for recipe in recipes %}
+                <div class="item_card-gerenciar" id="{{ recipe.title }}">
+                    <div class="item_img-card">
+                            <img src="{{ recipe.image }}" alt="">
+                    </div>
+                    <div>
+                        <div class="item_card-content">
+                            <p>{{ recipe.title }}</p>
+                        </div>
+                        <div class="item_card-info">
+                            <p>{{ recipe.name }}</p>
+                        </div>
+                        <div>
+                            <a href="/admin/recipes/{{ recipe.id }}/edit">Visualizar</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div><!-- CARDS(DAD) -->
+    </section>
+{% endblock content %}

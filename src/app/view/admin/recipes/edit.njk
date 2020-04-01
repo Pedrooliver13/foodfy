@@ -1,0 +1,77 @@
+{% extends "index.njk" %}
+
+{% block content %}
+
+    <section class="form-recipe container">
+
+        <form class="details" method="POST" action="/admin?_method=PUT">
+            <div class="header-form-edit">
+                <div>
+                    <h3>Editar receita</h3>
+                </div>
+                <button style="background-color:#DC4747;" class="item_buttons delete" type="submit" form="formDelete">Deletar</button>
+                <button class="item_buttons" type="submit">Salvar</button>
+            </div>
+            <div class="item">
+                <div>Imagem da receita</div>
+                <div><input type="url" name="image" placeholder="https://" value="{{ recipe.image }}"></div>
+            </div>
+            <div class="item">
+                <div>Título da Receita</div>
+                <div><input type="text" name="title" placeholder="Escreva o nome da receita" value="{{ recipe.title }}"></div>
+            </div>
+            <div class="item">
+                <div>Chef</div>
+                <div>
+                    <select name="chefs">
+                        {% for chef in chefs %}
+                            <option value="{{ chef.id }}" {% if chef.id == recipe.chef_id %} select="select" {% endif %}>
+                                {{ chef.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="item" id="ingredients">
+                <div>Ingredientes</div>
+                {% for ingredients in recipe.ingredients %}
+                    <div class="ingredient">
+                        <input type="text" name="ingredients[]" value="{{ ingredients }}" placeholder="Ingredient"/>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="button" class="add-ingredient">Adicionar novo Ingredientes</button>
+            <div class="item" id="preparation">
+                <div>Forma de prepararo</div>
+                {% for preparation in recipe.preparation %}
+                    <div class="preparation">
+                        <input type="text" name="preparation[]" placeholder="Escreva os ingredientes(separados por virgula)" value="{{ preparation }}"/>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="button" class="add-preparation">Adicionar novo Ingredientes</button>
+            <div class="item">
+                <div>Informações Adicionais
+                    <span>*opcional</span>
+                </div>
+                <div>
+                    <textarea type="text" name="information" value="{{ recipe.information }}" style="
+                    width:100%;
+                    height:257px;
+                    border: 1px solid #DDDDDD;
+                    "></textarea>
+
+                </div>
+
+                <input type="hidden" name="id" value="{{ recipe.id }}">{# para encontrar o id colocamos em um input escondido #}
+            </form>
+            <form id="formDelete" method="POST" action="/admin?_method=DELETE">
+                <input type="hidden" name="id" value="{{ recipe.id }}">
+            </form>
+
+        </section>
+
+        <script src="/form-delete.js"></script>
+        <script src="/create.js"></script>
+
+    {% endblock content %}

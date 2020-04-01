@@ -1,0 +1,61 @@
+{% extends "index.njk" %}
+{% block inputSeach %}
+    {% include "./../chefs/input-chefs.njk" %}
+{% endblock inputSeach %}
+
+{% block content %}
+
+    <section class="container">
+
+    <h3>Gerenciar chefs</h3>
+    <div class="cards_gerenciar-chefs">
+        {% for chef in chefs %}
+            <div class="item_card-gerenciar-chef" id="{{ chef.title }}">
+                <div class="item_img-card-chef">
+                    <img style="width:100%;" src="{{ chef.avatar_url }}" alt="">
+                </div>
+                <div>
+                    <div class="item_card-content">
+                        <p>{{ chef.name }}</p>
+                    </div>
+                    
+                    <div>
+                        <a href="/chefs/{{ chef.id }}">Visualizar</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="main_cards">
+                {% for recipe in recipes %}
+                    <div class="card" id="{{ recipe.title }}">
+                        <div class="img_card">
+                            <a href="/admin/recipes/{{ recipe.id }}">
+                                <img src="{{ recipe.image }}" alt="">
+                            </a>
+                        </div>
+                        <div class="card_content">
+                            <p>{{ recipe.title }}</p>
+                        </div>
+                        <div class="card_info">
+                            <p>{{ recipe.author }}</p>
+                        </div>
+                       
+                    </div>
+                {% endfor %}
+                
+        </div><!-- CARDS(DAD) -->
+    <!-- CARDS(DAD) -->
+    <div class="container pagination-container">
+        <div class="pagination" 
+            data-page="{{pagination.page}}" 
+            data-total="{{pagination.total_chefs}}"
+            ></div>
+        <div class="item_new-recipes">
+            <a class="item_button" href="/admin/chefs/create">Novo chef</a>
+            <a  class="item_button" href="/admin/chefs/gerenciar">Gerenciar chefs</a>
+        </div>
+    </div>
+    </section>
+     
+{% endblock content %}

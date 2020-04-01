@@ -1,0 +1,26 @@
+{% extends "index.njk" %}
+
+{% block content %}
+    <section class="form-recipe container" >
+        <form class="details" method="POST" action="/admin" enctype="multipart/form-data">
+            <div class="item_form-menu">
+                <div>
+                    <h3>Criando Receita</h3>
+                </div>
+
+                <div>
+                    <button
+                    type="submit"
+                    >
+                    Salvar receita
+                    </button>
+                </div>
+            </div>    
+        
+            {% include "./field.njk" %}
+            
+        </form>
+    </section>
+
+    <script src="/create.js"></script>
+{% endblock content %}

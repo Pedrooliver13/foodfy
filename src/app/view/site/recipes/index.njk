@@ -1,0 +1,52 @@
+{% extends "index.njk" %}
+
+
+{% block content %}
+
+    <section class="container">
+       <div class="wrapper">
+       
+            <div class="wrapper_text">
+                <h1>As Melhores receitas</h1>
+                <p>Aprenda a Construir os Melhores Pratos com receitas Criadas por Profissionais do Mundo Inteiro.</p>
+            </div><!-- TEXTO CHAMATIVO -->
+            
+            <div class="image">
+                <img src="./assets/119236-OQ05QX-268.png" alt="">
+            </div><!-- /IMAGE(CHEF) -->
+       </div><!-- /wrapper -->
+    </section><!-- /CONTAINER -->
+
+    <section class="container">
+            <h1>Mais Acessadas</h1>
+
+            <div class="main_cards">
+                {% for recipe in recipes %}
+                    <div class="card" id="{{ recipe.title }}">
+                        <div class="img_card">
+                            <a href="/recipes/{{ recipe.id }}">
+                                <img src="{{ recipe.image }}" alt="">
+                            </a>
+                        </div>
+                        <div class="card_content">
+                            <p>{{ recipe.title }}</p>
+                        </div>
+                        <div class="card_info">
+                            <p>{{ recipe.chef_name }}</p>
+                        </div>
+                       
+                    </div>
+                {% endfor %}
+                
+        </div><!-- CARDS(DAD) -->
+       
+    </section>
+    
+
+    <script src="/script.js"></script>
+
+ {% endblock %}
+
+   
+
+    

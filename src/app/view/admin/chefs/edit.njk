@@ -1,0 +1,40 @@
+{% extends "index.njk" %}
+
+{% block inputSeach %}
+    {% include "./input-chefs.njk" %}
+{% endblock inputSeach %}
+
+{% block content %}
+    <section class="form-recipe container" >
+        <form action="/chefs?_method=PUT" method="POST">
+            <div class="header-form-edit">
+                <div>
+                    <h3>Editar receita</h3>
+                </div>
+                <input id="totalRecipes" type="hidden" name="{{ chef.total_recipes }}">
+                <button 
+                id="buttonDelete"  
+                style="background-color:#DC4747;" 
+                class="item_buttons delete" 
+                type="submit" 
+                form="formDelete"
+                >Deletar</button>
+                <button class="item_buttons" type="submit">Salvar</button>
+            </div>
+        
+           {% include "././field.njk" %}
+            <input type="hidden" name="id" value="{{ chef.id }}">
+        </form>
+        <form 
+        id="formDelete" 
+        {% if chef.total_recipes == 0 %}
+            method="POST" 
+            action="/chefs?_method=DELETE"
+        {% endif %}
+        >
+            <input type="hidden" name="id" value="{{ chef.id }}">
+        </form>
+    </section>
+
+    <script src="/form-delete.js"></script>
+{% endblock content %}

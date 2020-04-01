@@ -1,0 +1,73 @@
+h3{
+    margin: 50px auto auto auto;
+    font-weight: bold;
+    font-size: 20px;
+}
+.links a {
+    display: flex;
+    padding:20px;
+    
+    font-size: 18px;
+    text-align: center;
+}
+.cards_gerenciar{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+
+    gap: 20px;
+
+
+    grid-template-columns: 1fr 1fr;
+    margin-top: 1.8%;
+}
+.item_card-gerenciar{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    padding: 20px auto;
+    transition: all 100ms ease;
+}
+.item_img-card img{
+    width: 100% !important;
+    height: 100% !important;
+    
+    
+    cursor: pointer;
+    border-radius: 10px;
+}
+.item_card-content.item_card-info{
+    padding-bottom: 20px; 
+
+    font-weight: 700;
+    font-size: var(--font-size-18px);
+    color: var(--color-black);
+}
+.item_card-info{
+    grid-column: 2;
+    padding-bottom: 20px;
+
+    font-size: var(--font-size-14px);
+    color: var(--color-gray);
+
+}
+.item_card-gerenciar div:last-child a {
+    display: grid;
+    justify-content: start !important;
+    
+}
+@media (max-width: 600px){
+    h3{
+        text-align: center;
+        padding-bottom: 15px;
+    }
+    .cards_gerenciar{
+        grid-template-columns: 1fr;
+    }
+    .item_card-info{
+        padding-bottom:10px ; 
+
+    }
+}
