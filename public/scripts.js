@@ -1,12 +1,33 @@
-let currentPage = location.pathname
-const activeMenu = document.querySelectorAll('header a')
-for (let item of activeMenu) {
-	if (currentPage.includes(item.getAttribute('href'))) {
-		item.classList.add('active')
-	}
-}
+const currentPage = location.pathname; //location.pathname, ou seja pegando o nome da URL;
+const activeMenu = document.querySelectorAll("header a"); // menu a ser usado.
 
+activeMenu.forEach(item => {
+  if (currentPage.includes(item.getAttribute("href"))) {
+    item.classList.add("active");
+  }
+});
+// toggle da receita
+const RecipeToggle = {
+  recipeContent: document.querySelector(".recipe_content"),
+  button: "",
+  replaceNameToggle(event) {
+    const content = RecipeToggle.recipeContent;
+    const button = event;
 
+    if (content.classList.contains("active")) {
+      button.textContent = "Mostrar";
+    } else {
+      button.textContent = "Esconder";
+    }
+  },
+  handleToggleRecipe(event) {
+    const content = RecipeToggle.recipeContent;
+
+    RecipeToggle.replaceNameToggle(event);
+    content.classList.toggle("active");
+  }
+};
+//paginação
 function paginate(selectedPage, totalPage) {
 	let page = [],
 		oldPage
@@ -30,7 +51,7 @@ function paginate(selectedPage, totalPage) {
 	}
 	return page
 }
-
+//responsável por chamar a função paginate e enviar o que recebeu para o front
 function createPaginate(pagination) {
 	const page = +pagination.dataset.page
 	const total = +pagination.dataset.total

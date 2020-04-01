@@ -5,16 +5,31 @@
   font-family: "Roboto", sans-serif;
 
 }
+
+:root {
+  --color-white: #ffffff;
+  --color-gray: #999999;
+  --color-gray-dark: #777777;
+  --color-black: #111111;
+  --color-black-light: #444444;
+  --color-delete: rgb(235, 137, 137);
+  --color-purple: #6558c3;
+
+  --color-wrapper-bg: #fbdfdb;
+  --color-footer-bg: #eeeeee;
+
+  --font-size-14px: 0.875em;
+  --font-size-18px: 1.125em;
+  --font-size-24px: 1.5em;
+  --font-size-36px: 36px;
+
+  --space-20px: 1.25rem;
+  --space-30px: 1.88rem;
+}
+
 .fontezero{font-size: 0em;}
 
-body {
-  display: flex;
-  flex-direction: column;
-  
-  background-color: var(--color-white);
-  font-size: 16px;
-  color: var(--color-black);
-}
+
 
 body,
 h1,
@@ -30,6 +45,16 @@ ul {
   padding: 0;
   font-weight: normal;
 }
+body {
+  display: flex;
+  flex-direction: column;
+  
+  background-color: var(--color-white);
+  font-size: 16px;
+  color: var(--color-black);
+}
+
+
 img{
     max-width: 100%;
 }
@@ -40,15 +65,13 @@ a{
 /* FOOTER */
 footer {
   background: #eeeeee;
+  color: var(--color-gray);
   margin-top: auto;
-  padding: var(--space-20px) 0;
+
+  text-align: center;
+  padding: 20px 0 ;
 }
 
-footer p {
-  font-size: var(--font-size-14px);
-  color: #999999;
-  text-align: center;
-}
 
 /* button e inputs */
 input , select {
