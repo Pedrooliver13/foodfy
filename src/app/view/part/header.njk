@@ -1,0 +1,43 @@
+<header>
+  <div class="container">
+    <div class="main_logo">
+      <a href="/">
+        <img src="/../assets/logo (2).png" alt="FoodFy">
+      </a>
+    </div>
+    <!-- /LOGO -->
+    <div class="menu-section">
+
+      <div class="menu-toggle">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+      </div>
+
+      
+      
+      <nav class="main_menu">
+        <ul>
+          <li>
+            <a href="/sobre">Sobre</a>
+          </li>
+          <li>
+            <a href="/recipes">Receitas</a>
+          </li>
+          <li>
+            <a href="/chefs">Chefs</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- /MENU -->
+    <div>
+
+      {% block inputSeach %}
+        {% include "../admin/recipes/input-recipes.njk" %}
+      {% endblock inputSeach %}
+
+    </div>
+  </div>
+</header>
+<!-- /CONTAINER -->
