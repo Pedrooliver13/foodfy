@@ -3,7 +3,6 @@
 *:after {
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
-  outline: 0;
 
   text-decoration: none;
   list-style: none;
@@ -46,15 +45,26 @@ ol,
 ul {
   margin: 0;
   padding: 0;
+  border: 0;
+  outline: 0;
+  
   font-weight: normal;
+}
+html,
+body {
+  min-height: 100vh;
 }
 body {
   display: flex;
   flex-direction: column;
 
   background-color: var(--color-white);
-  font-size: 16px;
+  font-size: 1em;
   color: var(--color-black);
+
+  
+  -webkit-font-smoothing: antialiased;
+  transition: all 200ms;
 }
 
 img {
@@ -68,10 +78,12 @@ a {
 footer {
   background: #eeeeee;
   color: var(--color-gray);
+  font-size: .9em;
+  
   margin-top: auto;
 
   text-align: center;
-  padding: 20px 0;
+  padding: 0.9em 0;
 }
 
 /* button e inputs */
@@ -97,61 +109,16 @@ textarea {
   padding: 16px 24px;
   line-height: 24px;
 }
-
-.item {
-  position: relative;
-}
-.item #photos-upload {
-  position: absolute;
-
-  width: 100%;
-  max-width: 160px;
-  height: 150px;
-
-  opacity: 0;
-  z-index: 100;
-
-  cursor: pointer;
-}
-
-.item .photo-upload__send {
-  width: 100%;
-  min-height: 150px;
-  
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  
-  grid-gap: 20px;
-  grid-template-columns: repeat(4, 1fr);
-}
-.item .photo-upload__send .photo {
-  width: 100%;
-  min-height: 150px;
-  border: 1px solid #dddddd;
-
-}
-
-.item .photo-upload__send i {
-  font-size: 32px;
-}
-
-.item .photo-upload__send .photo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 button,
 .item_button {
   box-sizing: border-box;
   background: var(--color-purple);
   color: var(--color-white);
 
-  padding: 10px 10px !important;
+  padding: 8px 5px;
   cursor: pointer;
 
   border: none;
-  border-radius: 4px;
   border-radius: 4px;
 }
 
@@ -166,12 +133,149 @@ button:hover,
   justify-content: space-between !important;
 }
 
+/* HEADER(MENU PRINCIPAL) */
+header {
+  background-color: var(--color-black);
+}
+
+header > .container{
+  display: flex;
+  align-items: center !important;
+
+  background-color: var(--color-black);
+  padding: 18px;
+}
+
+.main_logo img {
+  flex: 2;
+  cursor: pointer !important;
+}
+
+.main_menu {
+  flex: 1;
+  margin-left: 8px;
+}
+
+.menu-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  flex: 1;
+}
+.main_menu ul {
+  position: relative;
+  
+  display: flex;
+  align-items: center;
+
+  font-size: 18px;
+}
+
+.main_menu a {
+  position: relative;
+
+  margin:0 8px;
+  color: #777777;
+}
+
+.main_menu a::after {
+  content: "";
+  position: absolute;
+
+  width: 0%;
+  height: 2px;
+
+  left: 0px;
+  bottom: -4px;
+
+  background-color: var(--color-footer-bg);
+  
+}
+
+.main_menu a:hover::after,
+.item_menu-cadastro:hover {
+  width: 100%;
+  filter: brightness(115%) !important;
+
+  transition: width 250ms ease-in-out;
+}
+
+a.active {
+  font-weight: bold;
+  color: var(--color-footer-bg);
+}
+
+/* cards das receitas */
+
+.main_cards {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+
+  margin-top: 1.8%;
+  margin-bottom: 2%;
+}
+
+.card {
+  display: grid;
+  transition: all 100ms ease;
+}
+
+.card:hover {
+  transform: translateY(-3px) scale(1.03);
+}
+
+.img_card img {
+  width: 100% !important;
+  height: 90px;
+
+  object-fit: cover;
+
+  cursor: pointer;
+  border-radius: 15px;
+}
+
+.img_card a {
+  padding: 0 !important;
+}
+
+.card_content {
+  font-weight: bold;
+}
+
+.card_content.card_info {
+  font-weight: 700;
+  font-size: var(--font-size-18px);
+  color: var(--color-black);
+}
+
+.card_info {
+  font-size: var(--font-size-14px);
+  color: var(--color-gray);
+}
+
+.card a {
+  padding: 20px;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .main_cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
 /* PAGINAÇÃO */
 .pagination-container {
   display: grid;
   align-items: end;
 
-  margin-top: 30%;
+  margin: 5px auto;
 }
 .pagination {
   display: flex;
@@ -197,6 +301,16 @@ button:hover,
 
 
 @media (max-width: 740px){
+  /* UPLOAD IMG */
+  .item #photos-upload{
+    max-width: 110px;
+  }
+  .photos-upload__preview {
+    grid-template-columns: repeat(3, 1fr);
+  } 
+  
+
+  /* MENU RESPONSIVO */
   header {
     padding: 10px 0px;
   }
@@ -227,7 +341,7 @@ button:hover,
     height: 30px;
     
     margin-right: 20px;
-
+    cursor: pointer;
   }
 
   .menu-section.on {
@@ -280,7 +394,7 @@ button:hover,
   .menu-section.on nav ul a {
     display: block;
     transition-duration: 0.5s;
-    font-size: 2rem;
+    font-size: 2rem;/* aumentando a letra */
     line-height: 4rem;
 
     color: var(--color-wrapper-bg);

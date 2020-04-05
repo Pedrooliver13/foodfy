@@ -1,20 +1,21 @@
+//menu ativo;
 const currentPage = location.pathname; //location.pathname, ou seja pegando o nome da URL;
 const activeMenu = document.querySelectorAll("header a"); // menu a ser usado.
 
-activeMenu.forEach(item => {
+activeMenu.forEach((item) => {
   if (currentPage.includes(item.getAttribute("href"))) {
     item.classList.add("active");
   }
 });
-// toggle da receita
 
+// toggle da receita
 const head = document.querySelectorAll(".recipe_section");
 
 for (const recipe of head) {
   const btn = recipe.querySelector("button");
   const recipeContent = recipe.querySelector(".recipe_content");
 
-  btn.addEventListener("click", function() {
+  btn.addEventListener("click", function () {
     recipeContent.classList.toggle("active");
 
     if (recipeContent.classList.contains("active")) {
@@ -93,20 +94,165 @@ const wantDelete = {
         "não é possível deletar, Pois ele ainda tem receitas ativas no site"
       );
     }
-  }
+  },
 };
 
 //menu responsivo
 let show = true;
 
 const menuSection = document.querySelector(".menu-section");
-const menuToggle = document.querySelector('.menu-toggle')
+const menuToggle = menuSection.querySelector(".menu-toggle");
 
-menuToggle.addEventListener('click', ()=>{
-  document.body.style.overflow = show ? "hidden":"initial"; // se for true ele libera hidden , se não initial
+menuToggle.addEventListener("click", () => {
+  document.body.style.overflow = show ? "hidden" : "initial"; // se for true ele libera hidden , se não initial
 
-  menuSection.classList.toggle('on', show) // na primeira vez que clicar ele(show) vai estar como true , então ele só vai reforça o comando de colocar a class on 
+  menuSection.classList.toggle("on", show); // na primeira vez que clicar ele(show) vai estar como true , então ele só vai reforça o comando de colocar a class on
 
-  show = !show;//e ele vai receber false, na proxima vez o toggle vai saber que tem de tirar a class on,isso tudo ,para evitar de fazer a funcionar sem eu mandar
+  show = !show; //e ele vai receber false, na proxima vez o toggle vai saber que tem de tirar a class on,isso tudo ,para evitar de fazer a funcionar sem eu mandar
+});
 
-})
+const PhotosUpload = {
+  input: "",
+  preview: document.querySelector(".photos-upload__preview"),
+  UploadLimit: 8,
+  files: [],
+  handleFileInput(event) {
+    const { files: fileList } = event.target;
+    PhotosUpload.input = event.target;
+
+    if (PhotosUpload.hasLimit(event)) return;
+
+    Array.from(fileList).forEach((file) => {
+      const reader = new FileReader();
+      PhotosUpload.files.push(file);
+
+      reader.onload = () => {
+        const image = new Image(); //<img>
+        image.src = String(reader.result);
+
+        const div = PhotosUpload.getContainer(image);
+
+        PhotosUpload.preview.appendChild(div);
+      };
+
+      reader.readAsDataURL(file); // ele dispara o onload;
+    });
+    PhotosUpload.input.files = PhotosUpload.getAllFiles();
+  },
+  getAllFiles() {
+    const dataTransfer =
+      new ClipboardEvent("").clipboardData || new DataTransfer(); // mozilla e chrome;
+    PhotosUpload.files.forEach((file) => dataTransfer.items.add(file));
+
+    return dataTransfer.files;
+  },
+  hasLimit(event) {
+    const { UploadLimit, input, preview } = PhotosUpload;
+    const { files: fileList } = input;
+
+    if (fileList.length > UploadLimit) {
+      alert(
+        `Você Ultrapassou o limite de envio de imagem(Limite máximo: ${UploadLimit})`
+      );
+      event.preventDefault();
+
+      return true;
+    }
+
+    const photoDiv = [];
+    preview.childNodes.forEach((item) => {
+      if (item.classList && item.classList == "photo") photoDiv.push(item);
+    });
+
+    const totalPhotos = fileList.length + photoDiv.length;
+
+    if (totalPhotos > UploadLimit) {
+      alert(`Envie no máximo ${UploadLimit} fotos`);
+      event.preventDefault();
+
+      return true;
+    }
+
+    return false;
+  },
+  getContainer(image) {
+    const div = document.createElement("div");
+    div.classList.add("photo");
+
+    div.onclick = PhotosUpload.removePhoto;
+
+    div.appendChild(image);
+    div.appendChild(PhotosUpload.removeButton());
+
+    return div;
+  },
+  removeButton() {
+    const button = document.createElement("i");
+    button.classList.add("material-icons");
+    button.innerHTML = "close";
+
+    return button;
+  },
+  removePhoto(event) {
+    const photoDiv = event.target.parentNode; // <div class="photo">
+    const photoArray = Array.from(PhotosUpload.preview.children);
+
+    const index = photoArray.indexOf(photoDiv);
+
+    PhotosUpload.files.splice(index, 1);
+    PhotosUpload.input.files = PhotosUpload.getAllFiles();
+
+    return photoDiv.remove();
+  },
+  removeOldPhoto(event) {
+    const photoDiv = event.target.parentNode;
+
+    if (photoDiv.id) {
+      const removedFiles = document.querySelector(
+        'input[name="removed_files"]'
+      );
+
+      if (removedFiles) {
+        removedFiles.value += `${photoDiv},`; // vamos remover a virgula no controllers;
+      }
+    }
+
+    return photoDiv.remove();
+  },
+};
+
+const ImageGallery = {
+  previews: document.querySelectorAll(".gallery-preview img"),
+  highLight: document.querySelector(".highlight > .highlight-image"),
+  setImage(event) {
+    const { target } = event;
+
+    ImageGallery.previews.forEach((file) =>
+      file.classList.remove("active-image")
+    );
+
+    target.classList.add("active-image");
+
+    ImageGallery.highLight.src = target.src;
+
+    LightBox.image.src = target.src;
+  },
+};
+
+const LightBox = {
+  target: document.querySelector(".lightbox"),
+  image: document.querySelector(".lightbox-target img"),
+  close: document.querySelector(".lightbox-target .close-lightbox"),
+  open() {
+    LightBox.target.style.opacity = 1;
+    LightBox.target.style.top = 0;
+    LightBox.target.style.bottom = 0;
+    LightBox.close.style.top = 0;
+  },
+  close() {
+    LightBox.target.style.opacity = 0;
+    LightBox.target.style.top = "-100%";
+    LightBox.target.style.bottom = "initial";
+    LightBox.close.style.top = "-80px";
+  },
+};

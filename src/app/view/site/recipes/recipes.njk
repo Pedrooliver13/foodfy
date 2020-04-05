@@ -1,5 +1,9 @@
 {% extends 'index.njk' %}
 
+{% block css %}
+  <link rel="stylesheet" href="/stylesheet/global.css">
+{% endblock css %}
+
 {% block content %}
   <section class="container">
     {% if filter %}
@@ -9,29 +13,32 @@
         </strong>
       </p>
     {% endif %}
+
     <div class="main_cards">
+
       {% for recipe in recipes %}
         <div class="card" id="{{ recipe.title }}">
+        
           <div class="img_card">
             <a href="/recipes/{{ recipe.id }}">
-              <img src="{{ recipe.image }}" alt="">
+              <img src="{{ files[0].src }}" alt="{{ files.name }}">
             </a>
           </div>
+          
           <div class="card_content">
             <p>{{ recipe.title }}</p>
           </div>
           <div class="card_info">
             <p>{{ recipe.chef_name }}</p>
           </div>
+
         </div>
       {% endfor %}
     </div>
+
     <!-- CARDS(DAD) -->
     <div class="container pagination-container">
-      <div class="pagination" 
-      data-page="{{pagination.page}}" 
-      data-total="{{pagination.total}}"
-      ></div>
+      <div class="pagination" data-page="{{pagination.page}}" data-total="{{pagination.total}}"></div>
       <div class="item_new-recipes">
         <a class="item_button" href="/admin/recipes/create">Nova receita</a>
         <a class="item_button" href="/admin/recipes/gerenciar">Gerenciar Receitas</a>

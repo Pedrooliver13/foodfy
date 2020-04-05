@@ -19,166 +19,6 @@
   --space-30px: 1.88rem;
 }
 
-/* HEADER */
-header {
-  background-color: var(--color-black);
-}
-
-header > .container{
-  display: flex;
-  align-items: center !important;
-
-  background-color: var(--color-black);
-  padding: 18px;
-}
-
-.main_logo img {
-  flex: 2;
-  cursor: pointer !important;
-}
-
-.main_menu {
-  flex: 1;
-  margin-left: 8px;
-}
-
-.menu-section {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-
-  flex: 1;
-}
-
-
-.main_menu ul {
-  position: relative;
-  
-  display: flex;
-  align-items: center;
-
-  font-size: 18px;
-}
-
-.main_menu a {
-  position: relative;
-
-  margin:0 8px;
-  color: #777777;
-}
-
-.main_menu a::after {
-  content: "";
-  position: absolute;
-
-  width: 0%;
-  height: 2px;
-
-  left: 0px;
-  bottom: -4px;
-
-  background-color: var(--color-footer-bg);
-  
-}
-
-.main_menu a:hover::after,
-.item_menu-cadastro:hover {
-  width: 100%;
-  filter: brightness(115%) !important;
-
-  transition: width 250ms ease-in-out;
-}
-
-a.active {
-  font-weight: bold;
-  color: var(--color-footer-bg);
-}
-
-/* WRAPPER */
-.wrapper {
-  max-width: 100% !important;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-
-  background-color: var(--color-wrapper-bg);
-
-  margin: 3vh auto;
-  border-radius: 30px;
-}
-
-.wrapper_text h1 {
-  font-weight: 700;
-  font-size: 32px;
-  margin-bottom: 10px;
-  color: var(--color-black);
-}
-
-.wrapper_text {
-  justify-self: center;
-  max-width: 320px;
-  opacity: 0.7;
-  font-family: Roboto-Regular;
-  font-size: 18px;
-  line-height: 28px;
-  color: var(--color-gray-dark);
-}
-
-.wrapper .image {
-  max-width: 100%;
-  background: url("/public/assets/chef.png");
-  text-align: center;
-  padding-top: 8%;
-}
-
-/* REVENUE(cards das receitas) */
-.main_cards {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  margin-top: 1.8%;
-}
-
-.card {
-  display: grid;
-
-  transition: all 100ms ease;
-}
-
-.card:hover {
-  transform: translateY(-3px) scale(1.03);
-}
-
-.img_card img {
-  width: 100% !important;
-
-  cursor: pointer;
-  border-radius: 15px;
-}
-
-.img_card a {
-  padding: 0 !important;
-}
-
-.card_content.card_info {
-  font-weight: 700;
-  font-size: var(--font-size-18px);
-  color: var(--color-black);
-}
-
-.card_info {
-  font-size: var(--font-size-14px);
-  color: var(--color-gray);
-}
-
-.card a {
-  padding: 20px;
-  text-align: center;
-}
-
 /* pag gerenciar */
 .cards_gerenciar {
   display: grid;
@@ -230,57 +70,7 @@ a.active {
   justify-content: start !important;
 }
 
-/* PAG RECIPE */
-.recipes {
-  text-align: center;
-}
 
-.wrapper_recipe img {
-  margin: 20px auto;
-  border-radius: 15px;
-}
-
-.recipe_title p {
-  color: var(--color-black);
-  font-size: var(--font-size-36px);
-  font-weight: 700;
-}
-
-.recipe_info {
-  font-size: var(--font-size-18px);
-  color: var(--color-gray);
-}
-
-/* ingredientes */
-.recipe_head {
-  display: flex;
-  margin: 1.6% auto;
-}
-
-.recipe_head h1 {
-  font-weight: 700;
-  font-size: var(--font-size-24px);
-}
-
-.recipe_head button {
-  background: transparent;
-  border: none;
-  color: var(--color-gray);
-}
-
-.recipe_content {
-  display: none;
-
-  opacity: 0;
-  visibility: hidden;
-}
-
-.recipe_content.active {
-  display: block;
-
-  opacity: 1;
-  visibility: visible;
-}
 
 /* CADASTRO DE RECEITA */
 .item div {
@@ -291,6 +81,83 @@ a.active {
 .item span {
   filter: brightness(400%);
 }
+/* Upload de Images na criação e update de receitas  */
+.photos-upload {
+  position: relative;
+  display: grid;
+
+}
+ .item  #photos-input {
+  position: absolute;
+  
+  width: 100%;
+  max-width: 150px;
+  height: 150px;
+
+  margin: 0;
+  opacity: 0;
+
+  z-index: 1000;
+  cursor: pointer;
+  top: 30px;
+}
+
+.photos-upload__preview {
+  display: grid;
+  align-content: center;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  
+  margin-left: 0;
+}
+.photo-add, .photo {
+  position: relative;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  width: 100%;
+  max-width: 150px;
+  height: 150px;
+
+  margin-left: 0;
+
+  cursor: pointer;
+
+  border: 1px solid #DDDDDD;
+  border-radius:3.5px;
+}
+.photo-add i , .photo i {
+  font-size: 30px;
+}
+.photo img {
+  width: 100%;
+  height: 150px;
+
+  object-fit: cover;
+}
+.photo i {
+  position: absolute;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  width: 100%;
+  max-width: 150px;
+  height: 150px;
+
+  background-color: rgba(101, 88, 195, 0.6);
+  color: var(--color-footer-bg);
+
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.photo i:hover {
+  opacity: 1;
+}
+
 .item_form-menu {
   display: flex;
   align-items: center;
@@ -398,14 +265,6 @@ select {
     width: 100%;
   }
 
-  footer {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-
   .wrapper {
     justify-content: center;
     width: 400px;
@@ -417,9 +276,6 @@ select {
     max-width: 250px;
   }
 
-  .main_cards {
-    grid-template-columns: 1fr;
-  }
 
   /* PAG SOBRE */
   .main_sobre {
@@ -447,9 +303,13 @@ select {
 }
 
 /* BREAKPOINT 768px */
-@media (min-width: 48em) {
+@media (max-width: 740px) {
   .container {
     max-width: 720px;
+  }
+  .item-filtro{
+    opacity: 0;
+    display: none;
   }
 }
 

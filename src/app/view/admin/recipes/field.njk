@@ -1,19 +1,21 @@
 <div class="item">
   <div>Imagem da receita</div>
-  <div>
-    <input id="photos-upload" type="file" multiple="multiple" accept="image/*" onchange="">
-
-    <div class="photo-upload__send">
-      <div class="photo">
-        <i class="material-icons" style="color:#777;">add</i>
-      </div>
-      <div class="photo">
-        <img src="http://placeholder.it/500x500" alt="">
-      </div>
-    </div>
-
+  <div class="photos-upload">
+  
+    <input id="photos-input" type="file" name="photos" multiple="multiple" accept="image/*" onchange="PhotosUpload.handleFileInput(event)">
+    
   </div>
-</div>{# /item #}
+  <div class="photos-upload__preview">
+
+    <div class="photo-add">
+      <i class="material-icons" style="color:#777;">add</i>
+    </div>
+    
+  </div>
+
+  <input type="hidden" name="removed_files">
+</div>
+{# /item #}
 
 <div class="item">
   <div>Título da Receita</div>
