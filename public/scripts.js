@@ -206,6 +206,7 @@ const PhotosUpload = {
   },
   removeOldPhoto(event) {
     const photoDiv = event.target.parentNode;
+    console.log(photoDiv.id)
 
     if (photoDiv.id) {
       const removedFiles = document.querySelector(
@@ -213,7 +214,7 @@ const PhotosUpload = {
       );
 
       if (removedFiles) {
-        removedFiles.value += `${photoDiv},`; // vamos remover a virgula no controllers;
+        removedFiles.value += `${photoDiv.id},`; // vamos remover a virgula no controllers;
       }
     }
 
@@ -222,37 +223,37 @@ const PhotosUpload = {
 };
 
 const ImageGallery = {
-  previews: document.querySelectorAll(".gallery-preview img"),
-  highLight: document.querySelector(".highlight > .highlight-image"),
+  highlight: document.querySelector(".gallery .highlight > img"),
+  preview: document.querySelectorAll(".gallery-preview img"),
   setImage(event) {
     const { target } = event;
 
-    ImageGallery.previews.forEach((file) =>
+    ImageGallery.preview.forEach((file) =>
       file.classList.remove("active-image")
-    );
+    ); //passando dentro do preview e vendo quem tem o active-Image e removendo antes de eu adicionar o proximo;
 
     target.classList.add("active-image");
 
-    ImageGallery.highLight.src = target.src;
-
+    ImageGallery.highlight.src = target.src;
     LightBox.image.src = target.src;
   },
 };
 
 const LightBox = {
-  target: document.querySelector(".lightbox"),
-  image: document.querySelector(".lightbox-target img"),
-  close: document.querySelector(".lightbox-target .close-lightbox"),
+  // Dados de entrada, processamento , e Saída;
+  target: document.querySelector(".highlight .lightbox"),
+  image: document.querySelector('.lightbox-target img'),
+  closeButton: document.querySelector(".lightbox-target .close-lightbox"),
   open() {
     LightBox.target.style.opacity = 1;
     LightBox.target.style.top = 0;
     LightBox.target.style.bottom = 0;
-    LightBox.close.style.top = 0;
+    LightBox.closeButton.style.top = 0;
   },
   close() {
     LightBox.target.style.opacity = 0;
     LightBox.target.style.top = "-100%";
     LightBox.target.style.bottom = "initial";
-    LightBox.close.style.top = "-80px";
+    LightBox.closeButton.style.top = "-80px";
   },
 };

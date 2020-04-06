@@ -1,19 +1,27 @@
 <div class="item">
   <div>Imagem da receita</div>
   <div class="photos-upload">
-  
+
     <input id="photos-input" type="file" name="photos" multiple="multiple" accept="image/*" onchange="PhotosUpload.handleFileInput(event)">
-    
+
   </div>
   <div class="photos-upload__preview">
-
     <div class="photo-add">
       <i class="material-icons" style="color:#777;">add</i>
     </div>
-    
+
+    {% if files %}
+      {% for image in files %}
+        <div class="photo"  id="{{ image.id }}">
+          <img src="{{ image.src }}" alt="{{ image.name }}">
+          <i class="material-icons" onclick="PhotosUpload.removeOldPhoto(event)">close</i>
+        </div>
+      {% endfor %}
+      <input type="hidden" name="removed_files">
+    {% endif %}
+
   </div>
 
-  <input type="hidden" name="removed_files">
 </div>
 {# /item #}
 
@@ -53,6 +61,8 @@
     <span>*opcional</span>
   </div>
   <div>
-    <textarea type="text" name="information" value="{{ recipe.additionalInfos }}"></textarea>
+    <textarea type="text" name="information" value="{{ recipe.information }}">
+      {{ recipe.information}}
+    </textarea>
 
   </div>

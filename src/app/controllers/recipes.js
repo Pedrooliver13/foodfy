@@ -37,10 +37,12 @@ module.exports = {
       results = await File.all();
       let files = results.rows;
 
-
       files = files.map((file) => ({
         ...file,
-        src: `${req.protocol}://${req.headers.host}${file.path.replace("public","")}`,
+        src: `${req.protocol}://${req.headers.host}${file.path.replace(
+          "public",
+          ""
+        )}`,
       }));
 
       return res.render("site/recipes/recipes", {
@@ -91,21 +93,13 @@ module.exports = {
     return res.render("admin/recipes/create", { chefs });
   },
   async post(req, res) {
-    let {
-      chef_id,
-      title,
-      ingredients,
-      preparation,
-      information,
-      create_at,
-    } = req.body;
+    let { chef_id, title, ingredients, preparation, create_at } = req.body;
 
     const keys = Object.keys({
       chef_id,
       title,
       ingredients,
       preparation,
-      information,
       create_at,
     });
 
@@ -136,16 +130,19 @@ module.exports = {
 
     if (!recipe) return res.status(404).send("Recipe not found");
 
-    results = await File.find(recipe.id); 
+    results = await File.findRecipe(recipe.id);
     let files = results.rows;
 
-    files = files.map(file => ({
+    files = files.map((file) => ({
       ...file,
-      src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
-    }))
+      src: `${req.protocol}://${req.headers.host}${file.path.replace(
+        "public",
+        ""
+      )}`,
+    }));
     await Promise.all(files);
 
-    return res.render('site/recipes/show', { recipe, files })
+    return res.render("site/recipes/show", { recipe, files });
   },
   async edit(req, res) {
     let results = await Recipes.find(req.params.id);
@@ -156,7 +153,7 @@ module.exports = {
     results = await Recipes.ChefsSelectOptions();
     const chefs = results.rows;
 
-    results = await File.find(recipe.id);
+    results = await File.findRecipe(recipe.id);
     let files = results.rows;
 
     files = files.map((file) => ({
@@ -172,6 +169,46 @@ module.exports = {
     return res.render("admin/recipes/edit", { chefs, recipe, files });
   },
   async put(req, res) {
+    let { chef_id, title, ingredients, preparation, create_at } = req.body;
+
+    const keys = Object.keys({
+      chef_id,
+      title,
+      ingredients,
+      preparation,
+      create_at,
+    });
+
+    for (key of keys) {
+      if (req.body[key] == "" && key != "removed_files")
+        return res.send("Please, fill all fields");
+    }
+
+    if (req.files.length != 0) {
+      const newFilesPromise = req.files.map(file => File.create(file))
+      const files = await Promise.all(newFilesPromise);
+      
+      files.forEach(file => File.CreateRecipeFiles({
+        recipe_id: req.body.id,
+        file_id: file.rows[0].id
+      }));
+    }
+
+    //removendo virgula
+    if (req.body.removed_files) {
+      let removeFiles = req.body.removed_files.split(','); // [ 1, 2, 3, ]
+      const lastIndex = removeFiles.length - 1;
+      removeFiles.splice(lastIndex, 1);
+
+      if (removeFiles) {
+        const removeFilesPromise = removeFiles.map(id => File.deleteRecipe(id));
+        await Promise.all(removeFilesPromise);
+      }
+    }
+
+    let files = req.files.map((file) => File.put(file));
+
+    await Promise.all(files);
     await Recipes.update(req.body);
 
     return res.redirect("/");

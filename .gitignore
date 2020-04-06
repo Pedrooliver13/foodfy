@@ -1,6 +1,9 @@
 /node_modules
 /material-do-desafio
+./public/images
 
+./src/data.js
 data.json
 
 README.md
+mockup.png

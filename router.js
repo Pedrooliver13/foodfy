@@ -25,13 +25,14 @@ routes.delete("/admin", Recipes.delete);
 
 /* CHEF */
 routes.get("/chefs", Chefs.index);
-routes.get("/admin/chefs/create", Chefs.create);
 routes.get("/chefs/:id", Chefs.show);
-routes.get("/admin/chefs/gerenciar", Chefs.config);
 routes.get("/admin/chefs/:id/edit", Chefs.edit);
 
-routes.post("/chefs", Chefs.post);
-routes.put("/chefs", Chefs.put);
+routes.get("/admin/chefs/create", Chefs.create);
+routes.get("/admin/chefs/gerenciar", Chefs.config);
+
+routes.post("/chefs", multer.array("photos", 1), Chefs.post);
+routes.put("/chefs", multer.array("photos", 1), Chefs.put);
 routes.delete("/chefs", Chefs.delete);
 
 module.exports = routes;

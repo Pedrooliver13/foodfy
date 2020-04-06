@@ -1,21 +1,42 @@
 <div class="item">
-    <div>
-        name
-    </div>
-    <input 
-    type="text"
-    name="name"
-    value="{{ chef.name }}"
-    >
-</div>    
+  <div>
+    name
+  </div>
+  <input type="text" name="name" value="{{ chef.name }}">
+</div>
+
 <div class="item">
-    <div>
-        Avatar
-    </div>
+  <div>
+    Avatar
+  </div>
+
+  <div class="photos-upload-chefs">
     <input 
-    type="text"
-    name="avatar_url"
-    value="{{ chef.avatar_url }}"
+      id="photos" 
+      type="file" 
+      name="photos" 
+      value="{{ files }}" 
+      multiple="multiple" 
+      accept="image/*" 
+      onchange="PhotosUpload.handleFileInput(event)"
     >
+    <p style="width:fit-content; " class="item_button">
+      Enviar Avatar
+    </p>
+  </div>
+
+  <div class="photos-upload__preview">
+
+    {% if files %}
+      {% for image in files %}
+        <div class="photo" id="{{ image.id }}">
+          <img src="{{ image.src }}" alt="{{ image.name }}">
+          <i class="material-icons" onclick="PhotosUpload.removeOldPhoto(event)">close</i>
+        </div>
+      {% endfor %}
+      <input type="hidden" name="removed_files">
+    {% endif %}
+
+  </div>
 
 </div>

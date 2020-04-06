@@ -2,7 +2,7 @@ const db = require("../../config/db");
 const { date } = require("../../lib/utils");
 
 module.exports = {
-  async pagination(params) {
+  pagination(params) {
     let { filter, limit, offset } = params;
 
     let query = "",
@@ -31,7 +31,7 @@ module.exports = {
       `;
     return db.query(query, [limit, offset]);
   },
-  async post(data) {
+  post(data) {
     const query = `
       INSERT INTO receipts (
         chef_id,
@@ -55,7 +55,7 @@ module.exports = {
 
     return db.query(query, values);
   },
-  async find(id) {
+  find(id) {
     return db.query(
       `
         SELECT receipts.*, chefs.name AS chef_name
@@ -65,19 +65,17 @@ module.exports = {
       [id]
     );
   },
-  async update(data) {
+  update(data) {
     const query = `
       UPDATE receipts SET
-        image=($1),
-        title=($2),
-        chef_id=($3),
-        ingredients=($4),
-        preparation=($5),
-        information=($6)
-      WHERE id = $7
+        title=($1),
+        chef_id=($2),
+        ingredients=($3),
+        preparation=($4),
+        information=($5)
+      WHERE id = $6
       `;
     let values = [
-      data.image,
       data.title,
       data.chefs,
       data.ingredients,
@@ -88,9 +86,8 @@ module.exports = {
 
     return db.query(query, values);
   },
-  async delete(id) {
-    return db.query(
-      `
+  delete(id) {
+    return db.query(`
     DELETE FROM receipts 
     WHERE id = $1`,
       [id]

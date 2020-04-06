@@ -6,7 +6,8 @@
 
 {% block content %}
   <section class="form-recipe container">
-    <form action="/chefs?_method=PUT" method="POST">
+    <form action="/chefs?_method=PUT" method="POST" enctype="multipart/form-data">
+    
       <div class="header-form-edit">
         <div>
           <h3>Editar receita</h3>
@@ -32,9 +33,16 @@
       {% include "././field.njk" %}
       <input type="hidden" name="id" value="{{ chef.id }}">
     </form>
-    <form id="formDelete" {% if chef.total_recipes == 0 %} method="POST" action="/chefs?_method=DELETE" {% endif %}>
+
+    <form 
+    id="formDelete" 
+    {% if chef.total_recipes == 0 %}
+     method="POST" action="/chefs?_method=DELETE" enctype="multipart/form-data"
+    {% endif %}
+     >
       <input type="hidden" name="id" value="{{ chef.id }}">
     </form>
+
   </section>
 
 {% endblock content %}

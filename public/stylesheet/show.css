@@ -42,7 +42,7 @@
   z-index: 100;
   opacity: 0;
 
-  transition: opacity 0.2s;
+  transition: opacity 0.5s;
 }
 
 .highlight .lightbox .lightbox-target img {
@@ -59,6 +59,7 @@
   margin: auto;
   object-fit: contain;
   
+  border-radius: 3.5px;
 }
 .lightbox .lightbox-target .close-lightbox {
   position: absolute;
@@ -76,7 +77,9 @@
 
   right: 10px;
   cursor: pointer;
+  top: -80px;
 
+  transition: top 2s;
 }
 /* PREVIEW DE IMAGES */
 .gallery .gallery-preview {
@@ -105,13 +108,13 @@
   opacity: 1;
 }
 /* titulo da receita */
-.recipe_title p {
+.title_show p {
   color: var(--color-black);
   font-size: 1.5em;
   font-weight: 700;
 }
 
-.recipe_info {
+.info_show {
   font-size: 1em;
   color: var(--color-gray);
 }
@@ -202,4 +205,18 @@
   position: absolute;
   
   left: 0;
+}
+/* SHOW CHEFS */
+.highlight_chef{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.highlight_chef img {
+  width: 220px;
+  height: 220px;
+
+  object-fit: cover;
+
+  border-radius: 50%;
 }

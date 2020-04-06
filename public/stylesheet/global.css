@@ -64,7 +64,6 @@ body {
 
   
   -webkit-font-smoothing: antialiased;
-  transition: all 200ms;
 }
 
 img {
@@ -108,9 +107,12 @@ textarea {
 
   padding: 16px 24px;
   line-height: 24px;
+
+  overflow: hidden;
 }
 button,
 .item_button {
+
   box-sizing: border-box;
   background: var(--color-purple);
   color: var(--color-white);
@@ -205,6 +207,20 @@ a.active {
   font-weight: bold;
   color: var(--color-footer-bg);
 }
+/* Sub titulo show   */
+.recipe_sub-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.recipe_sub-title p {
+ font-size:1em; font-weight:bold;
+}
+
 
 /* cards das receitas */
 
