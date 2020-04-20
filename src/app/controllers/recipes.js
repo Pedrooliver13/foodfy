@@ -3,60 +3,70 @@ const File = require("../models/files");
 
 module.exports = {
   async index(req, res) {
-    let { filter, limit } = req.query;
+    try {
+      let results,
+        offset,
+        { page, limit, filter } = req.query;
 
-    limit = limit || 6;
-    let offset = 0;
+      page = page || 1;
+      limit = limit || 6;
+      offset = limit * (page - 1);
 
-    let params = { filter, limit, offset };
+      params = { page, limit, offset, filter };
 
-    let results = await Recipes.pagination(params);
-    const recipes = results.rows;
+      results = await Recipes.pagination(params);
+      const recipes = results.rows;
 
-    return res.render("site/recipes/index", { recipes, filter });
-  },
-  async recipes(req, res) {
-    let { filter, page, limit } = req.query; // ? tudo que vem depois da interogação;
+      async function getImage(recipeId) {
+        let results = await File.findRecipe(recipeId);
+        const files = results.rows.map(file =>
+            `${req.protocol}://${req.headers.host}${file.path.replace("public","")}`
+        );
 
-    page = page || 1;
-    limit = limit || 6;
+        return files[0];
+      }
 
-    let offset = limit * (page - 1);
-    const params = { filter, page, limit, offset }; // colocando tudo dentro de uma unica varialvel para mandar para o model
+      // passando os files;
+      const files = recipes.map(async (recipe) => {
+        recipe.img = await getImage(recipe.id);
 
-    let results = await Recipes.pagination(params);
-    const recipes = results.rows;
+        return recipe;
+      });
+      await Promise.all(files);
 
-    if (recipes.length != 0) {
-      // para quando não houver nenhuma receita;
       const pagination = {
         page,
         total: Math.ceil(recipes[0].total / limit),
       };
 
-      results = await File.all();
-      let files = results.rows;
-
-      files = files.map((file) => ({
-        ...file,
-        src: `${req.protocol}://${req.headers.host}${file.path.replace(
-          "public",
-          ""
-        )}`,
-      }));
-
       return res.render("site/recipes/recipes", {
         recipes,
-        filter,
         pagination,
-        files,
+        filter,
       });
+    } catch (error) {
+      console.error(error);
     }
-
-    return res.render("site/recipes/recipes");
   },
-  async about(req, res) {
-    return res.render("site/recipes/sobre");
+  async show(req, res) {
+    let results = await Recipes.find(req.params.id);
+    const recipe = results.rows[0];
+
+    if (!recipe) return res.status(404).send("Recipe not found");
+
+    results = await File.findRecipe(recipe.id);
+    let files = results.rows;
+
+    files = files.map((file) => ({
+      ...file,
+      src: `${req.protocol}://${req.headers.host}${file.path.replace(
+        "public",
+        ""
+      )}`,
+    }));
+    await Promise.all(files);
+
+    return res.render("site/recipes/show", { recipe, files });
   },
   async configRecipes(req, res) {
     let { filter, page, limit } = req.query;
@@ -124,26 +134,6 @@ module.exports = {
 
     return res.redirect("/home");
   },
-  async show(req, res) {
-    let results = await Recipes.find(req.params.id);
-    const recipe = results.rows[0];
-
-    if (!recipe) return res.status(404).send("Recipe not found");
-
-    results = await File.findRecipe(recipe.id);
-    let files = results.rows;
-
-    files = files.map((file) => ({
-      ...file,
-      src: `${req.protocol}://${req.headers.host}${file.path.replace(
-        "public",
-        ""
-      )}`,
-    }));
-    await Promise.all(files);
-
-    return res.render("site/recipes/show", { recipe, files });
-  },
   async edit(req, res) {
     let results = await Recipes.find(req.params.id);
     const recipe = results.rows[0];
@@ -185,23 +175,27 @@ module.exports = {
     }
 
     if (req.files.length != 0) {
-      const newFilesPromise = req.files.map(file => File.create(file))
+      const newFilesPromise = req.files.map((file) => File.create(file));
       const files = await Promise.all(newFilesPromise);
-      
-      files.forEach(file => File.CreateRecipeFiles({
-        recipe_id: req.body.id,
-        file_id: file.rows[0].id
-      }));
+
+      files.forEach((file) =>
+        File.CreateRecipeFiles({
+          recipe_id: req.body.id,
+          file_id: file.rows[0].id,
+        })
+      );
     }
 
     //removendo virgula
     if (req.body.removed_files) {
-      let removeFiles = req.body.removed_files.split(','); // [ 1, 2, 3, ]
+      let removeFiles = req.body.removed_files.split(","); // [ 1, 2, 3, ]
       const lastIndex = removeFiles.length - 1;
       removeFiles.splice(lastIndex, 1);
 
       if (removeFiles) {
-        const removeFilesPromise = removeFiles.map(id => File.deleteRecipe(id));
+        const removeFilesPromise = removeFiles.map((id) =>
+          File.deleteRecipe(id)
+        );
         await Promise.all(removeFilesPromise);
       }
     }

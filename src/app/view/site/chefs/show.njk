@@ -1,17 +1,5 @@
 {% extends 'index.njk' %}
-
-{% block css %}
-  <link rel="stylesheet" href="/stylesheet/show.css">
-{% endblock css %}
-
-{% block head %}
-  <title>{{ chef.name }}
-    - Foodfy</title>
-{% endblock %}
-
-{% block inputSeach %}
-  {% include "../../admin/chefs/input-chefs.njk" %}
-{% endblock inputSeach %}
+{% import "../../part/cardRecipes.njk" as cards %}
 
 {% block content %}
   <section class="recipes container">
@@ -25,7 +13,7 @@
 
     <div class="highlight_chef">
       {% if files %}
-        <img src="{{ files[0].src }}" alt="{{ files[0].name }}">
+        <img src="{{ chef.img }}" alt="{{ files[0].name }}">
       {% endif %}
 
     </div>
@@ -42,31 +30,10 @@
   </section>
   
   <section class="container">
-    <h3>Receitas</h3>
+    <h3 class="recipe_sub-title">Receitas</h3>
     
-    <div class="main_cards">
-    
-      {% for recipe in recipes %}
-        <div class="card" id="{{ recipe.title }}">
-
-          <div class="img_card">
-            <a href="/recipes/{{ recipe.recipe_id }}">
-              <img src="{{ files[0].src }}" alt="">
-            </a>
-          </div>
-
-          <div class="card_content">
-            <p>{{ recipe.title }}</p>
-          </div>
-          <div class="card_info">
-            <p>{{ chef.name }}</p>
-          </div>
-
-        </div>
-      {% endfor %}
-
-    </div>
-    <!-- CARDS(DAD) -->
+    {{ cards.recipes(chef.name, "", recipes) }}
+      
   </section>
 
 {% endblock %}

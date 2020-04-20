@@ -23,7 +23,7 @@ module.exports = {
 
     return db.query(query, values);
   },
-  find(id){
+  find(id){  
     return db.query( `
       SELECT * FROM files
       WHERE id = $1
@@ -31,7 +31,7 @@ module.exports = {
   },
   findRecipe(id) {
     return db.query(`
-    SELECT files.*, recipe_id AS recipeId
+    SELECT files.*
     FROM files
     LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
     WHERE recipe_id = $1

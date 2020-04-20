@@ -2,6 +2,14 @@ const db = require("../../config/db");
 const { date } = require("../../lib/utils");
 
 module.exports = {
+  all(){
+    return db.query(`
+      SELECT receipts.*, chefs.name AS chef_name 
+      FROM receipts
+      LEFT JOIN chefs ON (receipts.chef_id = chefs.id)
+      ORDER BY created_at DESC
+    `)
+  },
   pagination(params) {
     let { filter, limit, offset } = params;
 
@@ -27,6 +35,7 @@ module.exports = {
       FROM receipts
       LEFT JOIN chefs ON (chefs.id = receipts.chef_id)
       ${filterQuery}
+      ORDER BY receipts.updated_at DESC
       LIMIT $1 OFFSET $2
       `;
     return db.query(query, [limit, offset]);
@@ -56,8 +65,7 @@ module.exports = {
     return db.query(query, values);
   },
   find(id) {
-    return db.query(
-      `
+    return db.query(`
         SELECT receipts.*, chefs.name AS chef_name
         FROM receipts
         LEFT JOIN chefs ON (receipts.chef_id = chefs.id)

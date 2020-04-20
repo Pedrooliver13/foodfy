@@ -1,50 +1,35 @@
 {% extends 'index.njk' %}
-
-{% block css %}
-  <link rel="stylesheet" href="/stylesheet/global.css">
-{% endblock css %}
+{% import "part/section-recipes.njk" as section %}
 
 {% block content %}
   <section class="container">
-  
-    {% if filter %}
-      <p style="margin:15px auto; font-size:18px;">
-        <strong>Buscando por
-          <i>"{{filter}}"</i>
-        </strong>
-      </p>
-    {% endif %}
 
-    <div class="main_cards">
+     <div class="recipe_sub-title">
 
-      {% for recipe in recipes %}
-        <div class="card" id="{{ recipe.title }}">
-        
-          <div class="img_card">
-            <a href="/recipes/{{ recipe.id }}">
-              <img src="{{ files[0].src }}" alt="{{ files.name }}">
-            </a>
-          </div>
-          
-          <div class="card_content">
-            <p>{{ recipe.title }}</p>
-          </div>
-          <div class="card_info">
-            <p>{{ recipe.chef_name }}</p>
-          </div>
+      {% if filter %}
+        <p style=" font-size:18px;">
+          <strong>Buscando por
+            <i>"{{filter}}"</i>
+          </strong>
+        </p>
+      {% endif %}
 
-        </div>
-      {% endfor %}
-    </div>
-
-    <!-- CARDS(DAD) -->
-    <div class="container pagination-container">
-      <div class="pagination" data-page="{{pagination.page}}" data-total="{{pagination.total}}"></div>
       <div class="item_new-recipes">
-        <a class="item_button" href="/admin/recipes/create">Nova receita</a>
-        <a class="item_button" href="/admin/recipes/gerenciar">Gerenciar Receitas</a>
+        <a class="item_button" href="/admin/recipes/create">Novo Receita</a>
+        <a class="item_button" href="/admin/recipes/gerenciar">Gerenciar recipe</a>
       </div>
     </div>
+
+    {{ section.recipes("", "", recipes) }}
+
   </section>
+
+  <div class="pagination-container">
+    <div 
+      class="pagination" 
+      data-page="{{pagination.page}}" 
+      data-total="{{pagination.total}}"
+    ></div>
+  </div>
 
 {% endblock content %}

@@ -1,16 +1,6 @@
-{% extends "index.njk" %}
-
-{% block content %}
+{% macro chefs(name, class, chefs, pagination) %}
 
   <section class="container">
-
-    {% if filter %}
-      <p style="margin:15px auto; font-size:18px;">
-        <strong>Buscando por
-          <i>"{{filter}}"</i>
-        </strong>
-      </p>
-    {% endif %}
 
     <div class="recipe_sub-title">
       <p>
@@ -25,17 +15,13 @@
       </div>
     </div>
 
-    <div class="cards_gerenciar-chefs">
+    <div class="cards_gerenciar-chefs {{ class }}">
 
       {% for chef in chefs %}
         <div class="item_card-gerenciar-chef" id="{{ chef.title }}">
 
           <div class="item_img-card-chef">
-
-            <a href="/chefs/{{ chef.id }}">
-              <img src="{{ chef.img }}" alt="">
-            </a>
-
+            <img style="width:100%;" src="{{ chef.img }}" alt="">
           </div>
 
           <div>
@@ -43,9 +29,8 @@
               <p>{{ chef.name }}</p>
             </div>
 
-            <div class="item_card-info">
-              <p>{{ chef.total_receipts }}
-                Receitas</p>
+            <div>
+              <a href="/chefs/{{ chef.id }}">Visualizar</a>
             </div>
           </div>
 
@@ -55,8 +40,8 @@
     </div>
 
   </section>
-
   <div class="container pagination-container">
-    <div class="pagination" data-page="{{ pagination.page }}" data-total="{{ pagination.total_chefs }}"></div>
+    <div class="pagination" data-page="{{ pagination.page }}" data-total="{{ pagination.total_chefs }}">
+    </div>
   </div>
-{% endblock content %}
+{% endmacro %}

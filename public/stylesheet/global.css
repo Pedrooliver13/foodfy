@@ -77,12 +77,12 @@ a {
 footer {
   background: #eeeeee;
   color: var(--color-gray);
-  font-size: .9em;
+  font-size: 0.9em;
   
   margin-top: auto;
 
   text-align: center;
-  padding: 0.9em 0;
+  padding: 1.2em 0;
 }
 
 /* button e inputs */
@@ -117,7 +117,7 @@ button,
   background: var(--color-purple);
   color: var(--color-white);
 
-  padding: 8px 5px;
+  padding: 8px 8px;
   cursor: pointer;
 
   border: none;
@@ -129,183 +129,44 @@ button:hover,
   filter: brightness(125%);
 }
 .item_new-recipes {
-  /* button para se cadastrar */
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between !important;
-}
-
-/* HEADER(MENU PRINCIPAL) */
-header {
-  background-color: var(--color-black);
-}
-
-header > .container{
-  display: flex;
-  align-items: center !important;
-
-  background-color: var(--color-black);
-  padding: 18px;
-}
-
-.main_logo img {
-  flex: 2;
-  cursor: pointer !important;
-}
-
-.main_menu {
-  flex: 1;
-  margin-left: 8px;
-}
-
-.menu-section {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 
-  flex: 1;
+  margin: 8px 0px;
 }
-.main_menu ul {
-  position: relative;
-  
-  display: flex;
-  align-items: center;
-
-  font-size: 18px;
+.item_new-recipes .item_button{
+  margin-left: 5px;
 }
 
-.main_menu a {
-  position: relative;
-
-  margin:0 8px;
-  color: #777777;
-}
-
-.main_menu a::after {
-  content: "";
-  position: absolute;
-
-  width: 0%;
-  height: 2px;
-
-  left: 0px;
-  bottom: -4px;
-
-  background-color: var(--color-footer-bg);
-  
-}
-
-.main_menu a:hover::after,
-.item_menu-cadastro:hover {
-  width: 100%;
-  filter: brightness(115%) !important;
-
-  transition: width 250ms ease-in-out;
-}
-
-a.active {
-  font-weight: bold;
-  color: var(--color-footer-bg);
-}
-/* Sub titulo show   */
-.recipe_sub-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  margin-top: 10px;
-  margin-right: 5px;
-}
-
-.recipe_sub-title p {
- font-size:1em; font-weight:bold;
-}
-
-
-/* cards das receitas */
-
-.main_cards {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-
-  margin-top: 1.8%;
-  margin-bottom: 2%;
-}
-
-.card {
-  display: grid;
-  transition: all 100ms ease;
-}
-
-.card:hover {
-  transform: translateY(-3px) scale(1.03);
-}
-
-.img_card img {
-  width: 100% !important;
-  height: 90px;
-
-  object-fit: cover;
-
-  cursor: pointer;
-  border-radius: 15px;
-}
-
-.img_card a {
-  padding: 0 !important;
-}
-
-.card_content {
-  font-weight: bold;
-}
-
-.card_content.card_info {
-  font-weight: 700;
-  font-size: var(--font-size-18px);
-  color: var(--color-black);
-}
-
-.card_info {
-  font-size: var(--font-size-14px);
-  color: var(--color-gray);
-}
-
-.card a {
-  padding: 20px;
-  text-align: center;
-}
 @media (max-width: 600px) {
   .main_cards {
     grid-template-columns: 1fr;
   }
 }
-
-
-
-
 /* PAGINAÇÃO */
 .pagination-container {
-  display: grid;
-  align-items: end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  min-height: 100%;
 
-  margin: 5px auto;
+  margin-top: auto;
+  bottom: -140px;
 }
 .pagination {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  margin: 10px;
 }
 .pagination a,
 .pagination span {
   box-sizing: border-box;
-  padding: 7px 9px;
+  font-size: 1.2em;
+  padding: 8px 16px;
 
-  border-radius: 10px;
+  border-radius: 3.5px;
 
   background-color: var(--color-purple);
   color: var(--color-footer-bg);

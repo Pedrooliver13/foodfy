@@ -3,44 +3,48 @@ const File = require("../models/files");
 
 module.exports = {
   async index(req, res) {
-    let { filter, page, limit } = req.query;
+    try {
+      let results,
+          offset,
+          { page, limit, filter } = req.query;
 
-    page = page || 1;
-    limit = limit || 8;
+      page = page || 1;
+      limit = limit || 6;
+      offset = limit * (page - 1);
 
-    let offset = limit * (page - 1);
+      const params = { filter, limit, offset };
 
-    const params = { filter, page, limit, offset };
 
-    let results = await Chefs.paginate(params);
-    const chefs = results.rows;
+      results = await Chefs.paginate(params);
+      const chefs = results.rows;
 
-    const pagination = {
-      page,
-      total_chefs: Math.ceil(chefs[0].total_chefs / limit),
-    };
+      async function getImage(chefId){
+        let results = await File.find(chefId);
+        const files = results.rows.map(file => 
+          `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
+        );
+      
+        return files[0];
+      };
 
-    return res.render("site/chefs/index", { chefs, pagination, filter });
-  },
-  async config(req, res) {
-    let { filter, page, limit } = req.query;
+      const files = results.rows.map(async chef => {
+        chef.img = await getImage(chef.file_id);
 
-    page = page || 1;
-    limit = limit || 8;
+        return files;
+      });
 
-    let offset = limit * (page - 1);
+      await Promise.all(files);
 
-    const params = { filter, page, limit, offset };
+      const pagination = {
+        page, 
+        total_chefs: Math.ceil(chefs[0].total_chefs / limit),
+      }
 
-    let results = await Chefs.paginate(params);
-    const chefs = results.rows;
+      return res.render('site/chefs/index', { chefs, files, pagination });
 
-    const pagination = {
-      page,
-      total_chefs: Math.ceil(chefs[0].total_chefs / limit),
-    };
-
-    return res.render("admin/chefs/gerenciar", { chefs, pagination, filter });
+    } catch (error) {
+      console.error(error);
+    }
   },
   create(req, res) {
     return res.render("admin/chefs/create");
@@ -66,27 +70,50 @@ module.exports = {
     return res.redirect("/chefs");
   },
   async show(req, res) {
+   try {
+     
     let results = await Chefs.find(req.params.id);
     const chef = results.rows[0];
 
-    if (!chef) return res.send("Chefs is not found");
+    // getImage
+    async function getImage(chefId, recipeId) {
+      let results
 
+      chefId ? results = await File.find(chefId) : results = await File.findRecipe(recipeId);
+
+      const files = results.rows.map(file => 
+        `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
+      );
+
+      return files[0];
+    };
+    
+    // fileChef
+    let files = results.rows.map(async chef => {
+      chef.img = await getImage(chef.file_id);
+
+      return chef;
+    });
+
+    // getRecipes
     results = await Chefs.findRecipesChef(chef.id);
-    let recipes = results.rows;
+    const recipes = results.rows;
 
-    results = await File.find(chef.file_id);
-    let files = results.rows;
+    const recipePromise = recipes.map(async recipe => {
+      recipe.img = await getImage(null,recipe.id);
 
-    files = files.map((file) => ({
-      ...file,
-      src: `${req.protocol}://${req.headers.host}${file.path.replace(
-        "public",
-        ""
-      )}`,
-    }));
+      return recipe;
+    });
+    
+    await Promise.all(recipePromise);
     await Promise.all(files);
 
-    return res.render("site/chefs/show", { chef, recipes, files });
+
+    return res.render('site/chefs/show', { chef, files, recipes });
+
+   } catch (error) {
+     console.log(error);
+   }
   },
   async edit(req, res) {
     let results = await Chefs.find(req.params.id);

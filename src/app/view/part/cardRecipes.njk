@@ -1,0 +1,31 @@
+{% macro recipes(name, class, recipes) %}
+
+  <div class="main_cards {{ class }}">
+    {% for recipe in recipes %}
+      <div class="card" id="{{ recipe.title }}">
+
+        <div class="img_card">
+          <a href="/recipes/{{ recipe.id }}">
+            <img src="{{ recipe.img }}" alt="">
+          </a>
+        </div>
+
+        <div class="card_content">
+          <p>{{ recipe.title }}</p>
+        </div>
+
+        <div class="card_info">
+          {% if recipe.chef_name %}
+            <p>{{ recipe.chef_name }}</p>
+
+            {% else %}
+            <p>{{ name }}</p>
+          {% endif %}
+        </div>
+
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endmacro %}

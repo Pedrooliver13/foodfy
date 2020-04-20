@@ -2,6 +2,14 @@ const { date } = require("../../lib/utils");
 const db = require("../../config/db");
 
 module.exports = {
+  all(){
+    return db.query(`
+      SELECT chefs.*, count(receipts)
+      FROM chefs
+      LEFT JOIN receipts ON (chefs.id = receipts.chef_id)
+      GROUP BY chefs.id
+    `);
+  },
   paginate(params) {
     const { filter, limit, offset } = params;
 
@@ -14,7 +22,7 @@ module.exports = {
 
     if (filter) {
       filterQuery = `
-            WHERE chefs.name ILIKE '%${filter}%'
+            WHERE receipts.title ILIKE '%${filter}%'
             `;
       totalQuery = `(
                 SELECT count(*)
@@ -29,6 +37,7 @@ module.exports = {
         LEFT JOIN receipts ON (chefs.id = receipts.chef_id)
         ${filterQuery}
         GROUP BY chefs.id
+        ORDER BY chefs.created_at DESC
         LIMIT $1 OFFSET $2
         `;
     return db.query(query, [limit, offset]);
@@ -48,8 +57,7 @@ module.exports = {
     return db.query(query, values);
   },
   find(id) {
-    return db.query(
-      `
+    return db.query(`
         SELECT chefs.* , count(receipts) AS total_recipes
         FROM chefs 
         LEFT JOIN receipts ON (receipts.chef_id = chefs.id)
@@ -59,16 +67,15 @@ module.exports = {
     );
   },
   findRecipesChef(id) {
-    return db.query(
-      `
-        SELECT receipts.*,(
-            SELECT count(*)
-            FROM receipts
-        ) AS total_recipes , receipts.id AS recipe_id
-        FROM receipts
-        LEFT JOIN chefs ON (receipts.chef_id = chefs.id)
-        WHERE chefs.id = $1
-        `,
+    return db.query(`
+      SELECT receipts.*,(
+          SELECT count(*)
+          FROM receipts
+      ) AS total_recipes , receipts.id AS recipe_id
+      FROM receipts
+      LEFT JOIN chefs ON (receipts.chef_id = chefs.id)
+      WHERE chefs.id = $1
+      `,
       [id]
     );
   },
