@@ -34,16 +34,22 @@ module.exports = {
       });
       await Promise.all(files);
 
-      const pagination = {
-        page,
-        total: Math.ceil(recipes[0].total / limit),
+      
+
+      if(recipes.length > 0){
+        const pagination = {
+          page,
+          total: Math.ceil(recipes[0].total / limit),
+        };
+
+        return res.render("site/recipes/recipes", { recipes,pagination,filter });
+
+      }else {
+        return res.render("site/recipes/recipes");
       };
 
-      return res.render("site/recipes/recipes", {
-        recipes,
-        pagination,
-        filter,
-      });
+      
+
     } catch (error) {
       console.error(error);
     }

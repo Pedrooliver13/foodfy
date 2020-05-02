@@ -35,12 +35,17 @@ module.exports = {
 
       await Promise.all(files);
 
-      const pagination = {
-        page, 
-        total_chefs: Math.ceil(chefs[0].total_chefs / limit),
-      }
+      if(chefs.length > 0){
+        const pagination = {
+          page, 
+          total_chefs: Math.ceil(chefs[0].total_chefs / limit),
+        }
 
       return res.render('site/chefs/index', { chefs, files, pagination });
+      
+      }else {
+        return res.render('site/chefs/index');
+      }
 
     } catch (error) {
       console.error(error);
