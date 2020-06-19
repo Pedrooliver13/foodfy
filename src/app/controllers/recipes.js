@@ -102,13 +102,13 @@ module.exports = {
 
     return res.render("admin/recipes/gerenciar");
   },
-  async create(req, res) {
+  async createForm(req, res) {
     let results = await Recipes.ChefsSelectOptions();
     const chefs = results.rows;
 
     return res.render("admin/recipes/create", { chefs });
   },
-  async post(req, res) {
+  async create(req, res) {
     let { chef_id, title, ingredients, preparation, create_at } = req.body;
 
     const keys = Object.keys({

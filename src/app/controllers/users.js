@@ -1,4 +1,4 @@
-const Chefs = require("../models/chefs");
+const Chefs = require("../models/users");
 const File = require("../models/files");
 
 module.exports = {
@@ -54,14 +54,7 @@ module.exports = {
   create(req, res) {
     return res.render("admin/chefs/create");
   },
-  async post(req, res) {
-    const { name, avatar_url, created_at } = req.body;
-    const keys = Object.keys({ name, avatar_url, created_at });
-
-    for (key of keys) {
-      if (req.body[key] == "") return res.send("Please, fill all fields");
-    }
-
+  async create(req, res) {
     let results = req.files.map((file) => File.create(file));
     const files = await Promise.all(results);
 
@@ -137,7 +130,7 @@ module.exports = {
 
     return res.render("admin/chefs/edit", { chef, files });
   },
-  async put(req, res) {
+  async update(req, res) {
     const { name } = req.body;
     const keys = Object.keys({ name });
 
