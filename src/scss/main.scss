@@ -1,0 +1,17 @@
+// global
+@import "./base";
+
+// components;
+@import "./components/header";
+@import "./components/footer";
+@import "./components/cards";
+@import "./components/forms";
+@import "./components/buttons";
+@import "./components/photos-upload";
+@import "./components/pagination";
+
+// views;
+@import "./view/home";
+@import "./view/recipes";
+@import "./view/chefs";
+@import "./view/about";

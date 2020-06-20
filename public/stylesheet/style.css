@@ -371,8 +371,6 @@ select {
   }
 }
 
-
-
 /* FORMULARIOS DA RECEITAS */
 .item div {
   font-weight: bold;
@@ -463,7 +461,7 @@ select {
   position: relative;
 }
 
- #photos{
+#photos{
   position: absolute !important;
   opacity: 0;
 

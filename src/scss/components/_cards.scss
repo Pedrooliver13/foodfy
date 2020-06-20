@@ -1,0 +1,54 @@
+/* cards das receitas */
+.main_cards {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+
+  margin-top: 1.8%;
+  margin-bottom: 2%;
+}
+
+.card {
+  display: grid;
+  transition: all 100ms ease;
+}
+
+.card:hover {
+  transform: translateY(-3px) scale(1.03);
+}
+
+.img_card img {
+  width: 100% !important;
+  height: 90px;
+
+  object-fit: cover;
+
+  cursor: pointer;
+  border-radius: 15px;
+}
+
+.img_card a {
+  padding: 0 !important;
+}
+
+.card_content {
+  font-weight: bold;
+}
+
+.card_content.card_info {
+  font-weight: 700;
+  font-size: var(--font-size-18px);
+  color: var(--color-black);
+}
+
+.card_info {
+  font-size: var(--font-size-14px);
+  color: var(--color-gray);
+}
+
+.card a {
+  padding: 20px;
+  text-align: center;
+}

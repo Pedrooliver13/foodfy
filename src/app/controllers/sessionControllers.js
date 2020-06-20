@@ -3,6 +3,6 @@ module.exports = {
     return res.render('session/login');
   },
   login(req, res) {
-    return
+    return 
   }
 }

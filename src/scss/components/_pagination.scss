@@ -1,0 +1,31 @@
+/* PAGINAÇÃO */
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  min-height: 100%;
+
+  margin-top: auto;
+  bottom: -140px;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pagination a,
+.pagination span {
+  box-sizing: border-box;
+  font-size: 1.2em;
+  padding: 8px 16px;
+
+  border-radius: 3.5px;
+
+  background-color: var(--color-purple);
+  color: var(--color-footer-bg);
+  margin-right: 5px;
+}
+.pagination a:hover {
+  filter: brightness(125%);
+}

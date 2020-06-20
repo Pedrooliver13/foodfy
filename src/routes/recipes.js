@@ -6,9 +6,9 @@ const multer = require("../app/middlewares/multer");
 
 /* RECIPES */
 routes.get("/", Recipes.index); //rota para as receitas
-routes.get("/:id", Recipes.show);
 
 routes.get("/create", Recipes.createForm);
+routes.get("/:id", Recipes.show);
 routes.get("/:id/edit", Recipes.edit);
 
 routes.post("/", multer.array("photos", 6), Recipes.create);

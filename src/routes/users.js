@@ -21,11 +21,9 @@ routes.post('/login', sessionControllers.login);
 
 /* CHEF */
 routes.get("/", Chefs.index);
-routes.get("/create", userValidators.create, Chefs.create);
+routes.get("/create", userValidators.create, Chefs.createForm);
 routes.get("/:id", Chefs.show);
 routes.get("/:id/edit", Chefs.edit);
-
-
 
 
 routes.post("/", multer.array("photos", 1), Chefs.create);

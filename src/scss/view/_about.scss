@@ -1,0 +1,19 @@
+/* PAG SOBRE */
+.main_sobre {
+  margin: 10px auto;
+  padding: 20px;
+}
+
+.main_sobre h1 {
+  color: var(--color-black);
+  font-weight: bold;
+
+  margin: 3vh auto;
+}
+
+.main_sobre p {
+  text-align: justify;
+  color: var(--color-black-light);
+
+  margin-bottom: 5vh;
+}

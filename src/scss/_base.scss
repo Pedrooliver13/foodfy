@@ -1,0 +1,186 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+
+  text-decoration: none;
+  list-style: none;
+}
+
+:root {
+  --color-white: #ffffff;
+  --color-gray: #999999;
+  --color-gray-dark: #777777;
+  --color-black: #111111;
+  --color-black-light: #444444;
+  --color-delete: rgb(235, 137, 137);
+  --color-purple: #6558c3;
+
+  --color-wrapper-bg: #fbdfdb;
+  --color-footer-bg: #eeeeee;
+
+  --font-size-14px: 0.875em;
+  --font-size-18px: 1.125em;
+  --font-size-24px: 1.5em;
+  --font-size-36px: 36px;
+
+  --space-20px: 1.25rem;
+  --space-30px: 1.88rem;
+}
+
+.fontezero {
+  font-size: 0em;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  
+  font-weight: normal;
+}
+html,
+body {
+  min-height: 100vh;
+}
+body {
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--color-white);
+  font-size: 1em;
+  color: var(--color-black);
+
+  
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+}
+a {
+  text-decoration: none !important;
+}
+
+
+/* CONTAINER AND BREAKPOINTS */
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* BREAKPOINT 576px */
+@media (max-width: 600px) {
+  .main_menu {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .item-filtro {
+    display: none;
+  }
+  .header-form-edit,
+  .header-form-edit h3 {
+    /* formulário */
+    grid-template-columns: 120px 1fr 1fr;
+
+    grid-gap: 10px;
+  }
+  .cards_gerenciar-chefs {
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+  }
+  .form-recipe {
+    grid-template-columns: 1fr;
+  }
+
+  .item_menu-cadastro {
+    display: none;
+  }
+
+  .container {
+    max-width: 540px;
+  }
+
+  .modal {
+    width: 100%;
+  }
+
+  .wrapper {
+    justify-content: center;
+    width: 400px;
+    grid-template-columns: 1fr;
+    padding-top: 10px;
+  }
+
+  .wrapper_text {
+    max-width: 250px;
+  }
+
+
+  /* PAG SOBRE */
+  .main_sobre {
+    margin: 10px;
+    padding: 20px;
+  }
+
+  .main_sobre h1 {
+    color: var(--color-black);
+    font-weight: bold;
+
+    margin: 3vh auto;
+  }
+
+  .main_sobre p {
+    text-align: justify;
+    color: var(--color-black-light);
+
+    margin-bottom: 5vh;
+  }
+}
+
+.recipe_content.recipe_info {
+  font-size: var(--font-size-14px);
+}
+
+/* BREAKPOINT 768px */
+@media (max-width: 740px) {
+  .container {
+    max-width: 720px;
+  }
+  .item-filtro{
+    opacity: 0;
+    display: none;
+  }
+}
+
+/* BREAKPOINT 992px */
+@media (min-width: 62em) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+/* BREAKPOINT 1200px */
+@media (min-width: 75em) {
+  .containe-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}

@@ -51,7 +51,7 @@ module.exports = {
       console.error(error);
     }
   },
-  create(req, res) {
+  createForm(req, res) {
     return res.render("admin/chefs/create");
   },
   async create(req, res) {

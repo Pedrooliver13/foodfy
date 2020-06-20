@@ -1,7 +1,23 @@
 {% extends "index.njk" %}
 
 {% block content %}
-  <h3>Hello World</h3>
+  <section class="container">
+    <form action="/users">
+      <div class="item">
+        <div>Email</div>
 
+        <div>
+          <input type="email" name="email" placeholder="Dígite seu email">
+        </div>
+      </div>
+
+      <div class="item">
+        <div>Senha</div>
+
+        <div>
+          <input type="password" name="password" placeholder="Dígite sua senha">
+        </div>
+      </div>
+    </form>
+  </section>
 {% endblock content %}
-

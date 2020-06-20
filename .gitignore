@@ -1,8 +1,8 @@
 /node_modules
 /material-do-desafio
-./public/images
+public/images
 
-./src/data.js
+/src/data.js
 data.json
 
 README.md
