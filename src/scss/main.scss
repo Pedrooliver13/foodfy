@@ -1,12 +1,15 @@
 // global
 @import "./base";
 
+// essential
+@import "./essential/buttons";
+@import "./essential/forms";
+@import "./essential/messages";
+
 // components;
 @import "./components/header";
 @import "./components/footer";
 @import "./components/cards";
-@import "./components/forms";
-@import "./components/buttons";
 @import "./components/photos-upload";
 @import "./components/pagination";
 
@@ -15,3 +18,4 @@
 @import "./view/recipes";
 @import "./view/chefs";
 @import "./view/about";
+@import "./view/sessions";

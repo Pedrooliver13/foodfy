@@ -2,37 +2,14 @@
 
 {% block content %}
 
-  <section class="container">
-
-    {% if filter %}
-      <p style="margin:15px auto; font-size:18px;">
-        <strong>Buscando por
-          <i>"{{filter}}"</i>
-        </strong>
-      </p>
-    {% endif %}
-
-    <div class="recipe_sub-title">
-      <p>
-        <strong>
-          {{ name }}
-        </strong>
-      </p>
-
-      <div class="item_new-recipes">
-        <a class="item_button" href="/admin/chefs/create">Novo chef</a>
-        <a class="item_button" href="/admin/chefs/gerenciar">Gerenciar chefs</a>
-      </div>
-    </div>
-
-    <div class="cards_gerenciar-chefs">
+    <section class="cards_gerenciar-chefs">
 
       {% for chef in chefs %}
         <div class="item_card-gerenciar-chef" id="{{ chef.title }}">
 
           <div class="item_img-card-chef">
 
-            <a href="/chefs/{{ chef.id }}">
+            <a href="/users/{{ chef.id }}">
               <img src="{{ chef.img }}" alt="">
             </a>
 
@@ -52,11 +29,13 @@
         </div>
       {% endfor %}
 
+    </section>
+
+    <div class="pagination-container">
+      <div class="pagination" 
+      data-page="{{ pagination.page }}" 
+      data-total="{{ pagination.total_chefs }}"
+      ></div>
     </div>
 
-  </section>
-
-  <div class="container pagination-container">
-    <div class="pagination" data-page="{{ pagination.page }}" data-total="{{ pagination.total_chefs }}"></div>
-  </div>
 {% endblock content %}

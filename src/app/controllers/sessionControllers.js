@@ -4,5 +4,8 @@ module.exports = {
   },
   login(req, res) {
     return 
+  },
+  resetForm(req, res) {
+    return res.render('session/forgot-password');
   }
 }

@@ -12,7 +12,7 @@
 
     {% if files %}
       {% for image in files %}
-        <div class="photo"  id="{{ image.id }}">
+        <div class="photo" id="{{ image.id }}">
           <img src="{{ image.src }}" alt="{{ image.name }}">
           <i class="material-icons" onclick="PhotosUpload.removeOldPhoto(event)">close</i>
         </div>
@@ -27,8 +27,11 @@
 
 <div class="item">
   <div>Título da Receita</div>
-  <div><input type="text" name="title" value="{{ recipe.title }}"></div>
+  <div>
+    <input type="text" name="title" value="{{ recipe.title }}">
+  </div>
 </div>
+
 <div class="item">
   <div>Chef</div>
   <div>
@@ -41,20 +44,23 @@
     </select>
   </div>
 </div>
+
 <div class="item" id="ingredients">
   <div>Ingredientes</div>
   <div class="ingredient">
     <input type="text" name="ingredients[]" value="{{ recipe.ingredients }}"/>
   </div>
 </div>
-<button type="button" class="add-ingredient">Adicionar novo Ingredientes</button>
+
+<button class="item_button" type="button" class="add-ingredient">Adicionar novo Ingredientes</button>
+
 <div class="item" id="preparation">
   <div>Modo de preparo</div>
   <div class="preparation">
     <input type="text" name="preparation[]" value="{{ recipe.preparation }}"/>
   </div>
 </div>
-<button type="button" class="add-preparation">Adicionar novo Ingredientes</button>
+<button class="item_button" type="button" class="add-preparation">Adicionar novo Ingredientes</button>
 
 <div class="item">
   <div>Informações Adicionais

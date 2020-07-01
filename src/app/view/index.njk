@@ -7,21 +7,29 @@
     {% block head %}
       <title>Foodfy - As Melhores Receitas!</title>
     {% endblock %}
-    
+
     <!-- IMPORTS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
     <!-- CLASSE PAI -->
     <link rel="stylesheet" href="/stylesheet/main.css">
-    {# GLOBAL CSS #}
-    <link rel="stylesheet" href="/stylesheet/global.css">
   </head>
   <body>
 
-    {% include "part/header.njk" %}
+    {% include "part/messages.njk" %}
 
-    {% block content %}{% endblock %}
+    {% block header %}
+      {% include "part/header.njk" %}
+    {%endblock header%}
+
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
 
     {% include "part/footer.njk" %}
+
+    {# SCRIPTS #}
+    {% include "part/scripts.njk" %}
+
   </body>
 </html>

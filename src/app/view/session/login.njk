@@ -1,23 +1,32 @@
 {% extends "index.njk" %}
 
-{% block content %}
-  <section class="container">
-    <form action="/users">
-      <div class="item">
-        <div>Email</div>
+{%block header%}
+  <header class="header_login container">
+    <div class="logo">
+      <a href="/">
+        <img src="/../assets/logo.png" alt="">
+      </a>
+    </div>
+  </header>
+  {%endblock%}
 
-        <div>
-          <input type="email" name="email" placeholder="Dígite seu email">
+  {% block content %}
+
+
+    <section class="session_forms">
+
+      <h2>Iniciar Sessão</h2>
+
+
+      <form  method="POST" action="/users">
+        
+        {% include "./field.njk" %}
+
+        <div class="session_buttons">
+          <a href="">Perdeu a senha?</a>
+          
+          <button class="item_button">Acessar</button>
         </div>
-      </div>
-
-      <div class="item">
-        <div>Senha</div>
-
-        <div>
-          <input type="password" name="password" placeholder="Dígite sua senha">
-        </div>
-      </div>
-    </form>
-  </section>
-{% endblock content %}
+      </form>
+    </section>
+  {% endblock content %}

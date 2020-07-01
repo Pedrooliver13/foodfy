@@ -2,34 +2,27 @@
 {% import "part/section-recipes.njk" as section %}
 
 {% block content %}
-  <section class="container">
 
-     <div class="recipe_sub-title">
+  <div class="recipe_sub-title">
 
-      {% if filter %}
-        <p style=" font-size:18px;">
-          <strong>Buscando por
-            <i>"{{filter}}"</i>
-          </strong>
-        </p>
-      {% endif %}
+    {% if filter %}
+      <p style=" font-size:18px;">
+        <strong>Buscando por
+          <i>"{{filter}}"</i>
+        </strong>
+      </p>
+    {% endif %}
 
-      <div class="item_new-recipes">
-        <a class="item_button" href="/admin/recipes/create">Novo Receita</a>
-        <a class="item_button" href="/admin/recipes/gerenciar">Gerenciar recipe</a>
-      </div>
+    <div class="item_new-recipes">
+      <a class="item_button" href="/admin/recipes/create">Novo Receita</a>
+      <a class="item_button" href="/admin/recipes/gerenciar">Gerenciar recipe</a>
     </div>
+  </div>
 
-    {{ section.recipes("", "", recipes) }}
-
-  </section>
+  {{ section.recipes("", "", recipes) }}
 
   <div class="pagination-container">
-    <div 
-      class="pagination" 
-      data-page="{{pagination.page}}" 
-      data-total="{{pagination.total}}"
-    ></div>
+    <div class="pagination" data-page="{{pagination.page}}" data-total="{{pagination.total}}"></div>
   </div>
 
 {% endblock content %}

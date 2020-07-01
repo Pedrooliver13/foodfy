@@ -51,10 +51,10 @@ module.exports = {
       console.error(error);
     }
   },
-  createForm(req, res) {
-    return res.render("admin/chefs/create");
+  create(req, res) {
+    return res.render("admin/users/create");
   },
-  async create(req, res) {
+  async post(req, res) {
     let results = req.files.map((file) => File.create(file));
     const files = await Promise.all(results);
 

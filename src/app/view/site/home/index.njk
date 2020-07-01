@@ -4,27 +4,25 @@
 
 {% block content %}
 
-  <section class="container">
-    <div class="wrapper">
+  <section class=" wrapper">
 
-      <div class="wrapper_text">
+      <section class="wrapper_text">
         <h1>As Melhores Receitas</h1>
         <p>Aprenda a Construir os Melhores Pratos com receitas Criadas por Profissionais do Mundo Inteiro.</p>
-      </div>
+      </section>
       <!-- TEXTO CHAMATIVO -->
 
       <div class="image">
         <img src="./assets/119236-OQ05QX-268.png" alt="Chef foodfy">
       </div>
       <!-- /IMAGE(CHEF) -->
-    </div>
-    <!-- /wrapper -->
   </section>
   <!-- /CONTAINER -->
 
-  <section class="container">
+  <section class="cards">
     <h1>Mais Acessadas</h1>
     {{ cards.recipes('', '' , recipes) }}
   </section>
+
 
 {% endblock %}

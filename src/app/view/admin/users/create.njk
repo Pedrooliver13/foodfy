@@ -1,0 +1,31 @@
+{% extends "index.njk" %}
+
+{% block content %}
+  <section>
+    <form action="/?_method=PUT" method="POST">
+
+      <div class="input-group">
+        <div class="item">
+          <div>email</div>
+
+          <input type="email" name="email">
+        </div>
+
+        <div class="item">
+          <div>name</div>
+
+          <input type="email" name="email">
+        </div>
+      </div>
+      
+      <div class="item">
+        <div>Senha</div>
+
+        <div>
+          <input type="text">
+        </div>
+      </div>
+    </form>
+  </section>
+
+{% endblock content %}

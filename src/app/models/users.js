@@ -90,7 +90,7 @@ module.exports = {
 
     return db.query(query, values);
   },
-  delete(id) {
+  delete(id) {1
     return db.query(`DELETE FROM chefs WHERE id = $1`, [id]);
   },
 };

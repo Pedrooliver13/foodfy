@@ -1,18 +1,17 @@
 /* PAGINAÇÃO */
 .pagination-container {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  
-  min-height: 100%;
 
   margin-top: auto;
-  bottom: -140px;
 }
 .pagination {
   display: flex;
   align-items: center;
   justify-content: center;
+
+
 }
 .pagination a,
 .pagination span {
