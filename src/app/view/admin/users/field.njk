@@ -61,8 +61,8 @@
 
 <div class="checkboxs">
   
-  <input type="checkbox" name="is_admin" id="admin" value="1"  
-  {% if user.is_admin %} 
+  <input type="checkbox" name="is_admin" id="admin" value="true"  
+  {% if user.is_admin == true %} 
     checked
   {% endif %}/>
   <label for="admin">

@@ -7,7 +7,6 @@ module.exports = {
   async index(req, res) {
     try {
       let { recipes } = req;
-
       let { pagination, filter } = req.getPages;
 
       if (recipes)

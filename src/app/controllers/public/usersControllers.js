@@ -28,7 +28,7 @@ module.exports = {
 
       await Promise.all(files);
 
-      return res.render("public/chefs/index", { chefs });
+      return res.render("public/chefs/index", { chefs, success:req.query.success });
     } catch (error) {
       console.error(error);
 
@@ -36,6 +36,8 @@ module.exports = {
     }
   },
   async show(req, res) {
+    const {success} = req.query;
+    
     let results = await User.find(req.params.id);
     const chef = results.rows[0];
 
@@ -59,6 +61,6 @@ module.exports = {
     await Promise.all(files);
 
 
-    return res.render("public/chefs/show", { chef, files, recipes });
+    return res.render("public/chefs/show", { chef, files, recipes, success });
   },
 };

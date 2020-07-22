@@ -33,7 +33,7 @@ async function index(req, res, next) {
   });
   await Promise.all(files);
 
-  if (recipes.length > 0) {
+  if (recipes.length >= 0) {
     params.pagination = {
       page: params.page,
       total: Math.ceil(recipes[0].total / params.limit),
@@ -41,7 +41,7 @@ async function index(req, res, next) {
 
     req.getPages = params;
   }
-
+  
   req.recipes = results.rows;
 
   next();

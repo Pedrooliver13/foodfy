@@ -65,7 +65,7 @@ module.exports = {
       [id]
     );
   },
-  async update({id, fields}) {
+  async update(id, fields) {
     let query = "UPDATE users SET";
 
     // criando o query dinâmicamente;
@@ -94,21 +94,21 @@ module.exports = {
     let promiseResults = await Promise.all(allFilesRecipes);
 
     // deletar usuario;
-    return await db.query(`DELETE FROM users WHERE id = $1`, [id]);
+    await db.query(`DELETE FROM users WHERE id = $1`, [id]);
 
-    // // deletar files;
-    // promiseResults.map((results) => {
-    //   results.rows.map((file) => {
-    //     try {
-    //       fs.unlinkSync(file.path);
-    //     } catch (err) {
-    //       console.error(err);
+    // deletar files;
+    promiseResults.map((results) => {
+      results.map((file) => {
+        try {
+          fs.unlinkSync(file.path);
+        } catch (err) {
+          console.error(err);
 
-    //       return res.render("user/index", {
-    //         error: "Algum erro aconteceu!",
-    //       });
-    //     }
-    //   });
-    // });
+          return res.render("user/index", {
+            error: "Algum erro aconteceu!",
+          });
+        }
+      });
+    });
   },
 };

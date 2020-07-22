@@ -33,7 +33,7 @@ module.exports = {
     query = `
       SELECT receipts.*,${totalQuery}, users.name AS chef_name
       FROM receipts
-      LEFT JOIN users ON (users.id = receipts.user_id d)
+      LEFT JOIN users ON (users.id = receipts.user_id)
       ${filterQuery}
       ORDER BY receipts.updated_at DESC
       LIMIT $1 OFFSET $2
@@ -42,7 +42,7 @@ module.exports = {
     const results = db.query(query, [limit, offset]);
     return results;
   },
-  post(data) {
+  post(data , userId) {
     const query = `
       INSERT INTO receipts (
         user_id,
@@ -56,7 +56,7 @@ module.exports = {
     `;
 
     const values = [
-      data.chefs,
+      userId,
       data.title,
       data.ingredients,
       data.preparation,

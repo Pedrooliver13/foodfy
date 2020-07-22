@@ -1,5 +1,5 @@
 const { userId, imageName } = require("../../lib/utils");
-const { compare } = require('bcryptjs');
+const { compare } = require("bcryptjs");
 
 const User = require("../models/usersModels");
 const File = require("../models/files");
@@ -47,8 +47,8 @@ async function index(req, res, next) {
 
 async function create(req, res, next) {
   const { name, email, password } = req.body;
-  
-  const AllFillFields = checkAllFields({name, email, password});
+
+  const AllFillFields = checkAllFields({ name, email, password });
   if (AllFillFields) return res.render("admin/users/create", AllFillFields);
 
   const user = await User.findOne({ where: { email } });
@@ -89,20 +89,20 @@ async function update(req, res, next) {
   try {
     const { name, email, password } = req.body;
 
-    const AllFillFields = checkAllFields({name, email, password});
+    const AllFillFields = checkAllFields({ name, email, password });
     if (AllFillFields) return res.render("admin/users/create", AllFillFields);
 
-    const user = await userId(req.session);
+    const user = await User.findOne({ where: { email } });
 
-    if(!user) return res.render('session/login', {
-      error: "Faça Login para acessar essa página."
-    });
+    if (!user)
+      return res.render("session/login", {
+        error: "Faça Login para acessar essa página.",
+      });
 
     const passed = await compare(password, user.password);
-    
-    if(!passed) return res.render('admin/users/create', {error: "Senha incorreta"});
-    
-    if (req.files.length > 1) return res.send("Envie no máximo uma imagem");
+
+    if (!passed)
+      return res.render("admin/users/create", { error: "Senha incorreta" });
 
     if (req.body.removed_files) {
       let removedFiles = req.body.removed_files.split(","); // [1, 2, 3,]
@@ -117,19 +117,6 @@ async function update(req, res, next) {
       }
     }
 
-    if (req.files.length != 0) {
-      const newFilePromise = req.files.map((file) => File.create(file));
-      let files = await Promise.all(newFilePromise);
-
-      files = files.map((file) =>
-        User.update({ id:user.id, fileId: file.rows[0].id })
-      );
-      await Promise.all(files);
-    }
-    
-    
-    
-    
     // atualizar imagem
     if (req.body.removed_files) {
       let removedFiles = req.body.removed_files.split(","); // [1, 2, 3,]
@@ -144,11 +131,15 @@ async function update(req, res, next) {
       }
     }
 
+    req.user = user;
+
     next();
   } catch (err) {
     console.error(err);
 
-    return res.render('')
+    return res.render("session/login", {
+      error: "Deu ruim",
+    });
   }
 }
 

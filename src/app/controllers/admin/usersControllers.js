@@ -59,23 +59,34 @@ module.exports = {
   },
   async update(req, res) {
     try {
-      const { name, email, is_admin, id } = req.body;
+      const { name, id } = req.body;
+      const fields = { name, id };
 
-      await User.update({ id: req.body.id, fields: {name, email, is_admin, id } });
+      if (req.files.length != 0) {
+        const newFilePromise = req.files.map((file) => File.create(file));
+        let files = await Promise.all(newFilePromise);
+  
+        files = files.map((file) => {
+          fields.file_id = file.rows[0].id;
+  
+          return User.update(id, fields);
+        });
+        await Promise.all(files);
+      }
+
+
+      await User.update(id, fields);
 
       return res.redirect("/admin/users/profile");
     } catch (error) {
       console.error(error);
     }
 
-    return;
     // não esqueça do enctype no form , pq sem ele não vai encontrar o req.files;
   },
   async delete(req, res) {
     try {
       await User.delete(req.body.id);
-
-      console.log(req.body.id);
 
       return res.redirect('/?success="conta-deletada-com-successo"');
     } catch (error) {
