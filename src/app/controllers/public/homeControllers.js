@@ -17,6 +17,8 @@ async function userId(session) {
 
 module.exports = {
   async index(req, res) {
+    const { success } = req.query;
+    
     try {
       
       const user = await userId(req.session); 
@@ -50,7 +52,7 @@ module.exports = {
 
       let lastAdded = await Promise.all(recipesPromise);
 
-      return res.render("public/home/index", { recipes: lastAdded, user });
+      return res.render("public/home/index", { recipes: lastAdded, user, success });
 
     } catch (error) {
       console.error(error);
