@@ -1,0 +1,37 @@
+{% extends "index.njk" %}
+{% block content %}
+  <section class="form-recipe">
+    <form action="/admin/users/profile?_method=PUT" method="POST" enctype="multipart/form-data">
+
+      <div class="header__group">
+        <div class="title">
+          <h3>Editar Chef</h3>
+        </div>
+
+        <div>
+          <button type="submit" id="buttonDelete" form="formDelete" class="button delete">
+            Deletar
+          </button>
+
+          <button type="submit" class="button">Salvar</button>
+        </div>
+      </div>
+
+      {# content #}
+      {% include "./field.njk" %}
+
+      <input type="hidden" name="id" value="{{ user.id }}">
+    </form>
+
+    <form 
+    id="formDelete" 
+    action="/admin/users/profile?_method=DELETE" 
+    method="POST" 
+    >
+
+      <input type="hidden" name="id" value="{{ user.id }}">
+    </form>
+
+  </section>
+
+{% endblock content %}

@@ -9,6 +9,11 @@
   border-radius: 4px;
   z-index: 99999;
 
+  font-size: 1em;
+  padding: 12px;
+  
+  text-align: center;
+
   top: 1em;
   right: 1em;
 
@@ -24,7 +29,7 @@
     height: 4px;
 
     left: 0;
-    bottom: 0px;
+    bottom: -2px;
 
     animation: messageload 6s ease-in-out forwards;
 
@@ -47,7 +52,7 @@
   }
   to {
     width: 0;
-    right: -100em;
+    right: -200em;
     visibility: hidden;
   }
 }

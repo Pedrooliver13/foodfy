@@ -1,0 +1,44 @@
+{% extends 'index.njk' %}
+
+{% import "../../part/cardRecipes.njk" as cards %}
+
+{% block content %}
+  <section class="show">
+    <div class="header__group">
+      <div>
+        <h3 class="title">
+          Chef:
+          {{ chef.name }}
+        </h3>
+      </div>
+
+      <div>
+        <a class="button" href="/admin/users/{{ chef.id }}/edit">Editar Chef</a>
+      </div>
+    </div>
+
+    <div class="highlight_chef">
+      {% if files %}
+        <img src="{{ chef.img }}" alt="{{ files[0].name }}">
+      {% endif %}
+
+    </div>
+
+    <div>
+      <div class="show__title">
+        <p>{{ chef.name }}</p>
+      </div>
+      <div class="show__info">
+        <p>{{ chef.email }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="recipe_sub-title">Receitas</h3>
+
+    {{ cards.recipes(chef.name, "", recipes) }}
+
+  </section>
+
+{% endblock %}

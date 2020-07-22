@@ -1,19 +1,21 @@
 /* button e inputs */
-input,
-select {
-  max-width: 100%;
-  width: 450px;
+.item {
+  select,
+  input {
+    width: 100%;
 
-  box-sizing: border-box;
-  background: #ffffff;
+    box-sizing: border-box;
+    background: #ffffff;
 
-  border: 1px solid #dddddd;
-  border-radius: 4px;
-  border-radius: 4px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    border-radius: 4px;
 
-  padding: 8px 16px;
-  margin: 0;
+    padding: 12px 16px;
+    margin: 0;
+  }
 }
+
 textarea {
   width: 100%;
   resize: vertical;
@@ -27,24 +29,49 @@ textarea {
   overflow: hidden;
 }
 
-
 /* FORMULARIOS DA RECEITAS */
 .item {
   margin: 16px 0;
-}
-.item div {
-  font-weight: bold;
-  font-size: 14px;
-  margin: 10px 0;
-}
-.item span {
-  filter: brightness(400%);
+
+  div {
+    font-weight: bold;
+    font-size: 1em;
+    margin: 10px 0;
+  }
+  span {
+    filter: brightness(400%);
+  }
 }
 
 .input-group {
-  @extend .flex-center;
+  display: flex;
+  flex: wrap;
+  justify-content: space-between;
+
   .item {
-    flex: 1;
-    margin-right: 3px;
+    max-width: 100%;
+    width: 435px;
+  }
+}
+
+@media (max-width: 600px) {
+  .input-group {
+    display: flex;
+    flex-wrap: wrap;
+    .item {
+        max-width: 100%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .input-group {
+    display: flex;
+    flex-wrap: wrap;
+
+    .item {
+      width: 100%;
+      
+    }
   }
 }

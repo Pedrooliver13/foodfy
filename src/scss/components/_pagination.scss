@@ -7,10 +7,12 @@
   margin-top: auto;
 }
 .pagination {
+  position: absolute;
+  bottom: 70px;
+  
   display: flex;
   align-items: center;
   justify-content: center;
-
 
 }
 .pagination a,

@@ -2,31 +2,36 @@
 
 {% block content %}
 
-    <section class="form-recipe container">
+  <section class="form-recipe container">
 
-        <form class="details" method="POST" action="/admin?_method=PUT" enctype="multipart/form-data">
-            <div class="header-form-edit">
-                <div>
-                    <h3>Editar receita</h3>
-                </div>
-                <button style="background-color:#DC4747;" class="item_buttons delete" type="submit" form="formDelete">
-                    Deletar
-                </button>
-                <button class="item_buttons" type="submit">Salvar</button>
-            </div>
+    <form class="details" method="POST" action="/admin/recipes?_method=PUT" enctype="multipart/form-data">
 
-            {% include "./field.njk" %}
-            
-            <input type="hidden" name="id" value="{{ recipe.id }}">
-            {# para encontrar o id colocamos em um zinput escondido #}
-        </form>
+      <div class="header__group">
+        <div>
+          <h3>Editar receita</h3>
+        </div>
 
-        <form id="formDelete" method="POST" action="/admin?_method=DELETE">
-            <input type="hidden" name="id" value="{{ recipe.id }}">
-        </form>
+        <div>
+          <button class="button delete" type="submit" form="formDelete">
+            Deletar
+          </button>
 
-    </section>
+          <button class="button" type="submit">
+            Salvar
+          </button>
+        </div>
+      </div>
 
-    <script src="/create.js"></script>
+      {% include "./field.njk" %}
+
+      <input type="hidden" name="id" value="{{ recipe.id }}">
+      {# para encontrar o id colocamos em um input escondido #}
+    </form>
+
+    <form id="formDelete" method="POST" action="/admin/recipes?_method=DELETE">
+      <input type="hidden" name="id" value="{{ recipe.id }}">
+    </form>
+
+  </section>
 
 {% endblock content %}

@@ -1,5 +1,5 @@
 /* list chefs */
-.cards_gerenciar-chefs {
+.card__chefs {
   position: relative;
 
   display: grid;
@@ -8,47 +8,56 @@
   justify-content: center;
 
   padding: 15px 0px;
-  grid-gap: 10px;
 }
-.item_card-gerenciar-chef {
+
+.card__profile {
+  
   display: grid;
   grid-template-columns: 60px 1fr;
   align-items: center;
-  
+  justify-content: center;
+
   gap: 15px;
-  margin: 0px 5px;
-}
-.item_card-gerenciar-chef img {
-  position: relative;
 
-  width: 100%;
-  height: 60px;
-  border-width: 3px;
 
-  object-fit: cover;
-  object-position:center center;
+  .card__image img {
+    position: relative;
 
-  border-style: solid;
-  border-color: #7159c1;
-  border-radius: 50%;
-}
+    width: 100%;
+    height: 60px;
+    border-width: 3px;
 
-@media (max-width: 600px){
-  h3{
-      padding-bottom: 15px;
+    object-fit: cover;
+    object-position: center center;
+
+    border-style: solid;
+    border-color: #7159c1;
+    border-radius: 50%;
   }
-  .cards_gerenciar{
-      grid-template-columns: 1fr;
-  }
-  .item_card-info{
-      padding-bottom:10px ; 
 
+  .card__content {
+    font-weight: bold;
+  }
+  .card__info {
+    word-break: break-all;
+    color: var(--color-gray);
   }
 }
 
+@media (max-width: 600px) {
+  .card__chefs {
+    width: 280px;
+    margin: 0 auto;
+    grid-template-columns: repeat(1, 1fr);
+    
+  }
+  .card__info {
+    padding-bottom: 10px;
+  }
+}
 
 /* SHOW CHEFS */
-.highlight_chef{
+.highlight_chef {
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,8 +1,13 @@
-.item_button {
+.button {
   background: var(--color-purple);
   color: var(--color-white);
 
-  padding: 8px;
+  text-align: center;
+  font-size: .9em;
+  
+  max-width: 100%;
+  
+  padding: 8px 16px;
   cursor: pointer;
 
   border: none;
@@ -14,16 +19,20 @@
     filter: brightness(125%);
   }
 
-  .item_new-recipes {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  &.cancel {
+    background-color: #8A8A8A; 
+  }
 
-    margin: 8px 0px;
+  &.delete {
+    background-color: #DC4747;
+  }
 
-    .item_button {
-      margin-left: 5px;
-    }
+  &.logout {
+    border-radius: 50%;
+    
+    background-color: rgb(30, 28, 37);
+    color: red;
   }
 }
+
 

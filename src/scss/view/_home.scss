@@ -20,7 +20,7 @@
     color: var(--color-gray-dark);
     font-size: 1.2em;
     
-    h1 {
+    .title {
       font-weight: 700;
       font-size: 1.4em;
       color: var(--color-black);
@@ -39,12 +39,5 @@
     display: grid;
     grid-template-columns: 250px;
     justify-content: center;
-  }
-}
-
-
-.cards {
-  h1 {
-    font-weight: bold;
   }
 }

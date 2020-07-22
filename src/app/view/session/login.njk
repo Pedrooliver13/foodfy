@@ -18,14 +18,14 @@
       <h2>Iniciar Sessão</h2>
 
 
-      <form  method="POST" action="/users">
+      <form  method="POST" action="/login">
         
         {% include "./field.njk" %}
 
         <div class="session_buttons">
-          <a href="">Perdeu a senha?</a>
+          <a href="/forgot-password">Perdeu a senha?</a>
           
-          <button class="item_button">Acessar</button>
+          <button type="submit" class="button">Acessar</button>
         </div>
       </form>
     </section>

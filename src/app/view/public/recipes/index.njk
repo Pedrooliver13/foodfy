@@ -1,0 +1,19 @@
+{% extends 'index.njk' %}
+{% import "part/section-recipes.njk" as section %}
+
+{% block content %}
+
+  {% if filter %}
+    <div class="header__group">
+      <h3>
+        <strong>
+          Buscando por
+          <i>"{{filter}}"</i>
+        </strong>
+      </h3>
+    </div>
+  {% endif %}
+
+  {{ section.recipes("", "", recipes) }}
+
+{% endblock content %}

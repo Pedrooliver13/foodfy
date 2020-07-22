@@ -108,20 +108,3 @@ const PhotosUpload = {
     return photoDiv.remove();
   },
 };
-
-const ImageGallery = {
-  highlight: document.querySelector(".gallery .highlight > img"),
-  preview: document.querySelectorAll(".gallery-preview img"),
-  setImage(event) {
-    const { target } = event;
-
-    ImageGallery.preview.forEach((file) =>
-      file.classList.remove("active-image")
-    ); //passando dentro do preview e vendo quem tem o active-Image e removendo antes de eu adicionar o proximo;
-
-    target.classList.add("active-image");
-
-    ImageGallery.highlight.src = target.src;
-    LightBox.image.src = target.src;
-  },
-};

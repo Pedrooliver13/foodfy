@@ -2,14 +2,15 @@
 
 {% block content %}
   <section class="form-recipe container">
-    <form class="details" method="POST" action="/admin" enctype="multipart/form-data">
-      <div class="item_form-menu">
+    <form class="details" method="POST" action="/admin/recipes" enctype="multipart/form-data">
+
+      <div class="header__group">
         <div>
           <h3>Criando Receita</h3>
         </div>
 
         <div>
-          <button class="item_button" type="submit">
+          <button class="button" type="submit">
             Salvar receita
           </button>
         </div>
@@ -20,5 +21,4 @@
     </form>
   </section>
 
-  <script src="/create.js"></script>
 {% endblock content %}

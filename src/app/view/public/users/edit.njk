@@ -1,0 +1,26 @@
+{% extends "index.njk" %}
+
+{% block content %}
+  <section>
+    <form action="/admin/users/profile?_method=PUT" method="POST" enctype="multipart/form-data">
+
+      <div class="header__group">
+        <div>
+          <h3>Bem vindo
+            {{ user.name }}</h3>
+        </div>
+
+        <div>
+
+          <input type="hidden" name="id" value="{{ user.id }}">
+          <button type="submit" class="button">Salvar</button>
+        </div>
+
+      </div>
+
+      {% include "./field.njk" %}
+
+    </form>
+  </section>
+
+{% endblock content %}

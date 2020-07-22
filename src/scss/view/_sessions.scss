@@ -7,7 +7,6 @@
 
 .session_forms {
   @extend .flex-center;
-
   flex-direction: column;
 
   margin: 9.9% auto;
@@ -22,11 +21,7 @@
       padding: 8px 16px;
     }
 
-    .error {
-      border: 2px solid #dc4747;
-      border-radius: 3.5px;
-      color: #dc4747;
-    }
+    
   }
 
   .session_buttons {
@@ -45,10 +40,9 @@
       }
     }
 
-    .item_button {
+    .button {
       padding: 8px 32px;
     }
   }
 }
-
 

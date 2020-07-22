@@ -31,23 +31,17 @@
       border-radius: 15px;
     }
     
-    .img_card a {
-      padding: 0 !important;
-    }
-
-
-    .card_content {
+    .card__content {
       font-weight: bold;
     }
 
-    .card_content.card_info {
+    .card__content.card_info {
       font-weight: 700;
       font-size: var(--font-size-18px);
       color: var(--color-black);
     }
 
-
-    .card_info {
+    .card__info {
       font-size: var(--font-size-14px);
       color: var(--color-gray);
     }

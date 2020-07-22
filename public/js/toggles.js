@@ -30,11 +30,27 @@ menuToggle.addEventListener("click", () => {
   show = !show; //e ele vai receber false, na proxima vez o toggle vai saber que tem de tirar a class on,isso tudo ,para evitar de fazer a funcionar sem eu mandar
 });
 
+const ImageGallery = {
+  highlight: document.querySelector(".gallery .highlight > img"),
+  preview: document.querySelectorAll(".gallery-preview img"),
+  setImage(event) {
+    const { target } = event;
+
+    ImageGallery.preview.forEach((file) =>
+      file.classList.remove("active-image")
+    ); //passando dentro do preview e vendo quem tem o active-Image e removendo antes de eu adicionar o proximo;
+
+    target.classList.add("active-image");
+
+    ImageGallery.highlight.src = target.src;
+    LightBox.image.src = target.src;
+  },
+};
 
 const LightBox = {
   // Dados de entrada, processamento , e Saída;
   target: document.querySelector(".highlight .lightbox"),
-  image: document.querySelector('.lightbox-target img'),
+  image: document.querySelector(".lightbox-target img"),
   closeButton: document.querySelector(".lightbox-target .close-lightbox"),
   open() {
     LightBox.target.style.opacity = 1;

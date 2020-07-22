@@ -32,19 +32,6 @@
   </div>
 </div>
 
-<div class="item">
-  <div>Chef</div>
-  <div>
-    <select name="chefs">
-      {% for chef in chefs %}
-        <option value="{{ chef.id }}" {% if chef.id == recipe.chef_id %} select="select" {% endif %}>
-          {{ chef.name }}
-        </option>
-      {% endfor %}
-    </select>
-  </div>
-</div>
-
 <div class="item" id="ingredients">
   <div>Ingredientes</div>
   <div class="ingredient">
@@ -52,7 +39,9 @@
   </div>
 </div>
 
-<button class="item_button" type="button" class="add-ingredient">Adicionar novo Ingredientes</button>
+<button class="add-ingredient button" type="button">
+  Adicionar novo Ingrediente
+</button>
 
 <div class="item" id="preparation">
   <div>Modo de preparo</div>
@@ -60,7 +49,10 @@
     <input type="text" name="preparation[]" value="{{ recipe.preparation }}"/>
   </div>
 </div>
-<button class="item_button" type="button" class="add-preparation">Adicionar novo Ingredientes</button>
+
+<button class="button add-preparation" type="button">
+  Adicionar novo Ingrediente
+</button>
 
 <div class="item">
   <div>Informações Adicionais

@@ -1,0 +1,107 @@
+{% extends 'index.njk' %}
+
+{% block head %}
+  <title>{{ recipe.title }}
+    - Foodfy</title>
+{% endblock %}
+
+{% block content %}
+  <section class="show">
+    <div class="header__group">
+      <div>
+        <h3 class="title">
+          Receita: {{ recipe.title }}
+        </h3>
+      </div>
+
+      <div>
+        <a class="button" href="/admin/recipes/{{ recipe.id }}/edit">Editar Receita</a>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <div class="highlight">
+        <img class="highlight-image" src="{{ files[0].src }}" alt="{{ files[0].name }}" onclick="LightBox.open()">
+
+        <div class="lightbox">
+          <div class="lightbox-target">
+            <img src="{{ files[0].src }}" alt="{{ files[0].name }}">
+
+            <a href="#" class="close-lightbox" onclick="LightBox.close()">
+              <i class="material-icons">close</i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="gallery-preview">
+
+        {% for image in files %}
+          <img src="{{ image.src }}" alt="{{ image.name }}" {% if loop.index0 == 0 %} class="active-image" {% endif %} onclick="ImageGallery.setImage(event)">
+        {% endfor %}
+
+      </div>
+    </div>
+
+    <div>
+      <div class="show__title">
+        <p>{{ recipe.title }}</p>
+      </div>
+
+      <div class="show__info">
+        <p>{{ recipe.chef_name }}</p>
+      </div>
+    </div>
+  </section>
+
+  <div>
+    <article class="recipe_section">
+      <div class="recipe_head">
+        <h1>Ingredientes</h1>
+        <button class="button">Esconder</button>
+      </div>
+
+      <div class="recipe_content active">
+        <ul>
+          {% for recipes in recipe.ingredients %}
+            <li class="">
+              {{ recipes }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    </article>
+
+    <article class="recipe_section">
+      <div class="recipe_head">
+        <h1>Modo de Preparo</h1>
+        <button class="button">Esconder</button>
+      </div>
+
+      <div class="recipe_content active">
+        <ul>
+          {% for recipes in recipe.preparation %}
+            <li class="">{{ recipes }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </article>
+
+    <article class="recipe_section">
+      <div class="recipe_head">
+        <h1>Informações Adicionais</h1>
+        <button class="button">Esconder</button>
+      </div>
+
+      <div class="recipe_content active">
+        <p>{{recipe.information }}</p>
+      </div>
+    </article>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script src="/recipe.js"></script>
+{% endblock %}

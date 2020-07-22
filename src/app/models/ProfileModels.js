@@ -1,7 +1,7 @@
 const { hash } = require('bcryptjs');
 
 module.exports = {
-  async post(data) {
+  async create(data) {
     const query = `
       INSERT INTO users (
         name,
@@ -18,7 +18,7 @@ module.exports = {
       data.name,
       data.email,
       passwordHash,
-      is_admin
+      data.is_admin || false
     ]
 
     const results = await db.query(query, values);

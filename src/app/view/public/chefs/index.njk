@@ -1,0 +1,38 @@
+{% extends "index.njk" %}
+
+{% block content %}
+
+  <section class="card__chefs">
+
+    {% for chef in chefs %}
+
+      <div class="card__profile" id="{{ chef.name }}">
+        <div class="card__image">
+          <a href="/users/{{ chef.id }}">
+            {% if chef.img %}
+              <img src="{{ chef.img }}" alt="{{ chef.name }}">
+
+            {% else %}
+              <img src="https://image.shutterstock.com/image-illustration/male-default-placeholder-avatar-profile-260nw-582509551.jpg" alt="">
+
+            {% endif %}
+
+          </a>
+        </div>
+
+        <div>
+          <div class="card__content">
+            <p>{{ chef.name }}</p>
+          </div>
+
+          <div class="card__info">
+            <p>{{ chef.email }}</p>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+
+  </section>
+
+{% endblock content %}

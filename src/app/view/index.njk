@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     {% block head %}
       <title>Foodfy - As Melhores Receitas!</title>
     {% endblock %}
@@ -16,20 +17,24 @@
   </head>
   <body>
 
-    {% include "part/messages.njk" %}
+    {% include "includes/messages.njk" %}
 
     {% block header %}
-      {% include "part/header.njk" %}
+      {% include "includes/header.njk" %}
     {%endblock header%}
 
     <main class="container">
       {% block content %}{% endblock %}
     </main>
 
-    {% include "part/footer.njk" %}
+    {% if pagination %}
+      {% include "includes/pagination.njk" %}
+    {% endif %}
 
-    {# SCRIPTS #}
-    {% include "part/scripts.njk" %}
+    {% include "includes/footer.njk" %}
+
+    {# SCRIPTS (esse não tenho certeza se vou usar assim!) #}
+    {% include "includes/scripts.njk" %}
 
   </body>
 </html>

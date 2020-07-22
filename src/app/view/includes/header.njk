@@ -1,0 +1,76 @@
+<header>
+  <div class="header__menu">
+    <div class="main_logo">
+      <a href="/">
+        <img src="/../assets/logo (2).png" alt="FoodFy">
+      </a>
+    </div>
+    <!-- /LOGO -->
+    <div class="menu-section">
+
+      <div class="menu-toggle">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+      </div>
+
+      <nav class="main_menu">
+        <ul>
+          <li>
+            <a href="/sobre">Sobre</a>
+          </li>
+          <li>
+            <a href="/recipes">Receitas</a>
+          </li>
+          <li>
+            <a href="/users">Chefs</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- /MENU -->
+    <div>
+
+      {% if session.userId %}
+        <section class="profile">
+          <div class="card__profile" id="{{ user.name }}">
+
+            <div class="card__image">
+
+              <a href="/admin/users/profile">
+                {% if session.imageProfile  %}
+                  <img src="{{ session.imageProfile }}" alt="{{ user.name }}">
+
+                {% else %}
+                  <img src="https://image.shutterstock.com/image-illustration/male-default-placeholder-avatar-profile-260nw-582509551.jpg" alt="">
+
+                {% endif %}
+              </a>
+            </div>
+            <form action="/logout" method="POST">
+              <button type="submit" class="button logout">
+                <span class="material-icons">
+                  power_settings_new
+
+                </span>
+                <div class="modal logout">
+                  <p>Sair da Plataforma</p>
+                </div>
+              </button>
+
+            </form>
+          </div>
+
+        </section>
+
+        {%else%}
+
+        {% block inputSeach %}
+          {% include "../admin/recipes/input-recipes.njk" %}
+        {% endblock inputSeach %}
+      {% endif %}
+
+    </div>
+  </div>
+</header>
+<!-- /CONTAINER -->

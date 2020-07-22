@@ -2,17 +2,17 @@ const db = require("../../config/db");
 const { date } = require("../../lib/utils");
 
 module.exports = {
-  all(){
+  all() {
     return db.query(`
-      SELECT receipts.*, chefs.name AS chef_name 
+      SELECT receipts.*, users.name AS chef_name 
       FROM receipts
-      LEFT JOIN chefs ON (receipts.chef_id = chefs.id)
+      LEFT JOIN users ON (receipts.user_id = users.id)
       ORDER BY created_at DESC
-    `)
+    `);
   },
   pagination(params) {
-    let { filter, limit, offset } = params;
-
+    let { limit, offset, filter } = params;
+    
     let query = "",
       filterQuery = "",
       totalQuery = `(
@@ -22,7 +22,7 @@ module.exports = {
     if (filter) {
       filterQuery = `
         WHERE receipts.title ILIKE '%${filter}%'
-        OR chefs.name ILIKE '%${filter}%'
+        OR users.name ILIKE '%${filter}%'
         `;
       totalQuery = `(
         SELECT count(*)
@@ -31,19 +31,21 @@ module.exports = {
         ) AS total`;
     }
     query = `
-      SELECT receipts.*,${totalQuery}, chefs.name AS chef_name
+      SELECT receipts.*,${totalQuery}, users.name AS chef_name
       FROM receipts
-      LEFT JOIN chefs ON (chefs.id = receipts.chef_id)
+      LEFT JOIN users ON (users.id = receipts.user_id d)
       ${filterQuery}
       ORDER BY receipts.updated_at DESC
       LIMIT $1 OFFSET $2
       `;
-    return db.query(query, [limit, offset]);
+
+    const results = db.query(query, [limit, offset]);
+    return results;
   },
   post(data) {
     const query = `
       INSERT INTO receipts (
-        chef_id,
+        user_id,
         title,
         ingredients,
         preparation,
@@ -59,16 +61,17 @@ module.exports = {
       data.ingredients,
       data.preparation,
       data.information,
-      date(Date.now()).iso
+      date(Date.now()).iso,
     ];
 
     return db.query(query, values);
   },
   find(id) {
-    return db.query(`
-        SELECT receipts.*, chefs.name AS chef_name
+    return db.query(
+      `
+        SELECT receipts.*, users.name AS chef_name
         FROM receipts
-        LEFT JOIN chefs ON (receipts.chef_id = chefs.id)
+        LEFT JOIN users ON (receipts.user_id = users.id)
         WHERE receipts.id = $1`,
       [id]
     );
@@ -77,7 +80,7 @@ module.exports = {
     const query = `
       UPDATE receipts SET
         title=($1),
-        chef_id=($2),
+        user_id=($2),
         ingredients=($3),
         preparation=($4),
         information=($5)
@@ -85,17 +88,18 @@ module.exports = {
       `;
     let values = [
       data.title,
-      data.chefs,
+      data.userId,
       data.ingredients,
       data.preparation,
       data.information,
-      data.id
+      data.id,
     ];
 
     return db.query(query, values);
   },
   delete(id) {
-    return db.query(`
+    return db.query(
+      `
     DELETE FROM receipts 
     WHERE id = $1`,
       [id]
@@ -103,5 +107,5 @@ module.exports = {
   },
   ChefsSelectOptions() {
     return db.query(`SELECT name, id FROM chefs`);
-  }
+  },
 };

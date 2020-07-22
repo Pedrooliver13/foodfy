@@ -2,12 +2,13 @@ const db = require("../../config/db");
 const fs = require("fs");
 
 module.exports = {
-  all() {
+  all(id) {
     return db.query(`
-      SELECT files.* , recipe_id AS recipeid
-      FROM files
-      LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
-    `);
+    SELECT files.*, recipe_files.recipe_id as recipe_id 
+    FROM files
+    LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
+    WHERE recipe_id = $1
+    `, [id]);
   },
   create({ filename, path }) {
     // Todas as fotos (de receita e chefs);
@@ -75,7 +76,7 @@ module.exports = {
       fs.unlinkSync(file.path);
       
       results = await db.query(`
-      UPDATE chefs SET
+      UPDATE users SET
         file_id=($1)
       WHERE file_id = $2
       `, [null, id])
