@@ -91,8 +91,10 @@ module.exports = {
     return res.render("admin/recipes/edit", { chefs, recipe, files });
   },
   async put(req, res) {
-    const { userId} = req.session;
+    const { userId } = req.session;
     let { title, ingredients, preparation, create_at } = req.body;
+
+    req.body.userId = userId;
 
     const keys = Object.keys({
       userId,
@@ -136,6 +138,8 @@ module.exports = {
     let files = req.files.map((file) => File.put(file));
 
     await Promise.all(files);
+
+    console.log(req.body)
     await Recipes.update(req.body);
 
     return res.redirect("/");
