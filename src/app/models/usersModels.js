@@ -56,7 +56,7 @@ module.exports = {
       SELECT receipts.*, (
           SELECT count(*)
           FROM receipts
-      ) AS total_recipes , receipts.id AS recipe_id
+      ) AS total_recipes , receipts.id AS recipe_id, users.name AS chef_name
       FROM receipts
       LEFT JOIN users ON (receipts.user_id = users.id)
       WHERE users.id = $1

@@ -3,6 +3,10 @@ const { imageName } = require("../../../lib/utils");
 const User = require("../../models/usersModels");
 const File = require("../../models/files");
 
+/* 
+ this part available to the public
+*/
+
 async function getImage(req, chefId, recipeId) {
   let results = chefId
     ? await File.find(chefId)
@@ -28,7 +32,7 @@ module.exports = {
 
       await Promise.all(files);
 
-      return res.render("public/chefs/index", { chefs, success:req.query.success });
+      return res.render("public/chefs/index", { chefs, success: req.query.success });
     } catch (error) {
       console.error(error);
 

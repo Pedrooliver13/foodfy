@@ -5,7 +5,7 @@ const sessionControllers = require("../../app/controllers/admin/sessionControlle
 const sessionValidators = require("../../app/validators/session");
 
 routes
-  .get("/login", sessionControllers.loginForm)
+  .get("/login", sessionValidators.isLogged,sessionControllers.loginForm)
   .post("/login", sessionValidators.login, sessionControllers.login)
   .post('/logout', sessionControllers.logout)
 

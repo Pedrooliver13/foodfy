@@ -1,8 +1,14 @@
 const { compare } = require("bcryptjs");
 const User = require("../models/usersModels");
 
+async function isLogged(req, res, next) {
+  if(req.session.userId) 
+   return res.redirect('/admin/users/profile?error=Você já está logado.');
+
+  next();
+}
+
 async function login(req, res, next) {
-  // comparar o req.body, com os os usúarios
   const { email, password } = req.body;
 
   const user = await User.findOne({ where: { email } });
@@ -84,7 +90,7 @@ async function resetPassword(req, res, next) {
         token,
       });
 
-    req.user= user;
+    req.user = user;
 
     next();
   } catch (error) {
@@ -93,6 +99,7 @@ async function resetPassword(req, res, next) {
 }
 
 module.exports = {
+  isLogged,
   login,
   forgot,
   resetPassword,

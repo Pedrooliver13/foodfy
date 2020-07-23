@@ -3,8 +3,12 @@ const { imageName } = require("../../../lib/utils");
 const User = require("../../models/usersModels");
 const File = require("../../models/files");
 
-const {hash} = require('bcryptjs');
+const { hash } = require('bcryptjs');
 const mailer = require('../../../lib/mailer');
+
+/* 
+  this part is only available to admins
+*/
 
 module.exports = {
   create(req, res) {
@@ -71,6 +75,8 @@ module.exports = {
     }
   },
   async show(req, res) {
+    const {success, error} = req.query;
+    
     const { user, files } = req;
 
     if (!user)
@@ -78,9 +84,11 @@ module.exports = {
         error: "Não encontramos o usúario",
       });
 
-    return res.render("public/users/edit", { user, files });
+    return res.render("public/users/edit", { user, files, success, error });
   },
   async edit(req, res) {
+    const {success, error} = req.query;
+    
     try {
       const { id } = req.params;
 
@@ -93,7 +101,7 @@ module.exports = {
       }));
       await Promise.all(files);
 
-      return res.render("admin/users/edit", { user, files });
+      return res.render("admin/users/edit", { user, files, success, error });
     } catch (err) {
       console.error(err);
 
@@ -102,8 +110,12 @@ module.exports = {
   },
   async update(req, res) {
     try {
-      const { name, id } = req.body;
-      const fields = { name, id };
+      const {user} = req; 
+      const fields = { name: req.body.name, id: req.body.id };
+      // não deixamos ele atualizar o email
+      if(user.id != fields.id)
+        return res.redirect('/?error=Email de usúario errado');
+      
 
       if (req.files.length != 0) {
         const newFilePromise = req.files.map((file) => File.create(file));
@@ -116,7 +128,7 @@ module.exports = {
         });
       }
 
-      await User.update(id, fields);
+      await User.update(fields.id, fields);
 
       return res.redirect("/users?success=Conta Atualizada com sucesso");
     } catch (error) {
@@ -129,7 +141,7 @@ module.exports = {
     try {
       await User.delete(req.body.id);
 
-      return res.redirect('/?success=Conta deletada com successo"');
+      return res.redirect('/users?success=Conta deletada com successo');
     } catch (error) {
       console.error(error);
     }

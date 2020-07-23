@@ -63,11 +63,6 @@ a {
   background-color: #7159c1;
 }
 
-::-webkit-scrollbar-track {
-  color: red;
-  width: 2px;
-}
-
 ::-webkit-scrollbar-thumb {
   background: #2c2055;
   border-radius: 3.5px;
@@ -133,12 +128,6 @@ a {
     margin-bottom: 5vh;
   }
 }
-
-.recipe_content.recipe_info {
-  font-size: var(--font-size-14px);
-}
-
-
 
 /* BREAKPOINT 768px */
 @media (max-width: 740px) {

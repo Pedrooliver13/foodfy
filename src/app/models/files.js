@@ -3,12 +3,15 @@ const fs = require("fs");
 
 module.exports = {
   all(id) {
-    return db.query(`
+    return db.query(
+      `
     SELECT files.*, recipe_files.recipe_id as recipe_id 
     FROM files
     LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
     WHERE recipe_id = $1
-    `, [id]);
+    `,
+      [id]
+    );
   },
   create({ filename, path }) {
     // Todas as fotos (de receita e chefs);
@@ -24,14 +27,18 @@ module.exports = {
 
     return db.query(query, values);
   },
-  find(id){  
-    return db.query( `
+  find(id) {
+    return db.query(
+      `
       SELECT * FROM files
       WHERE id = $1
-    `, [id]);
+    `,
+      [id]
+    );
   },
   findRecipe(id) {
-    return db.query(`
+    return db.query(
+      `
     SELECT files.*
     FROM files
     LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
@@ -64,49 +71,62 @@ module.exports = {
 
     return db.query(query, values);
   },
-  async deleteChefs(id){
+  async deleteChefs(id) {
     try {
-      let results = await db.query(`
+      let results = await db.query(
+        `
       SELECT * FROM files
       WHERE id = $1
-      `, [id]);
+      `,
+        [id]
+      );
 
-      const file = results.rows[0]; 
-      
-      fs.unlinkSync(file.path);
-      
-      results = await db.query(`
+      results.rows.map((file) => fs.unlinkSync(file.path));
+
+      results = await db.query(
+        `
       UPDATE users SET
         file_id=($1)
       WHERE file_id = $2
-      `, [null, id])
-      
-      return db.query(`
+      `,
+        [null, id]
+      );
+
+      return db.query(
+        `
       DELETE FROM files
       WHERE id = $1
-      `, [id]);
-
+      `,
+        [id]
+      );
     } catch (err) {
       throw new Error(err);
     }
   },
   async deleteRecipe(id) {
     try {
-      let results = await db.query(`
+      let results = await db.query(
+        `
       SELECT * FROM files
       WHERE id = $1
-    `, [id]);
+    `,
+        [id]
+      );
 
       const file = results.rows[0];
 
       fs.unlinkSync(file.path);
 
-      results = await db.query(`
+      results = await db.query(
+        `
       DELETE FROM recipe_files
       WHERE file_id = $1
-      `, [id]);
+      `,
+        [id]
+      );
 
-      return db.query(`
+      return db.query(
+        `
       DELETE FROM files
       WHERE id = $1
     `,

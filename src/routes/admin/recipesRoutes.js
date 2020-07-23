@@ -8,7 +8,7 @@ const isAdminMiddleware = require('../../app/validators/isAdmin');
 
 /* RECIPES */
 routes.get("/create", [isAdminMiddleware.onlyUsers], Recipes.createForm);
-routes.get("/:id/edit", [isAdminMiddleware.onlyUsers, isAdminMiddleware.onlyAdmin], Recipes.edit);
+routes.get("/:id/edit", [isAdminMiddleware.onlyUsers, isAdminMiddleware.yourRecipe], Recipes.edit);
 
 routes.post("/", multer.array("photos", 6), Recipes.post);
 routes.put("/", multer.array("photos", 6), Recipes.put);

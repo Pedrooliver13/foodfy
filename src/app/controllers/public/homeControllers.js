@@ -18,8 +18,6 @@ module.exports = {
     const { success, error } = req.query;
     
     try {
-      
-      const user = await userId(req.session); 
 
       let results = await Recipes.all();
       const recipes = results.rows;
@@ -36,12 +34,6 @@ module.exports = {
 
         return files[0];
       }
-
-      if(user) {
-        user.img = await getImage("",user.file_id);  
-      }
-        
-
       const recipesPromise = recipes.map(async (recipe) => {
         recipe.img = await getImage(recipe.id);
 
@@ -50,7 +42,7 @@ module.exports = {
 
       let lastAdded = await Promise.all(recipesPromise);
 
-      return res.render("public/home/index", { recipes: lastAdded, user, success, error });
+      return res.render("public/home/index", { recipes: lastAdded, success, error });
 
     } catch (error) {
       console.error(error);

@@ -71,18 +71,17 @@ async function show(req, res, next) {
       error: "Usúario não encontrado",
     });
 
-  if(user.file_id) {
+  if (user.file_id) {
     const results = await File.find(user.file_id);
     const files = results.rows.map((file) => ({
       ...file,
       src: imageName(req, file.path),
     }));
-  
+
     await Promise.all(files);
-    
+
     req.files = files;
   }
-  
 
   req.user = user;
 
@@ -92,21 +91,24 @@ async function show(req, res, next) {
 async function update(req, res, next) {
   try {
     const { name, email, password } = req.body;
-
     const AllFillFields = checkAllFields({ name, email, password });
-    if (AllFillFields) return res.render("admin/users/create", AllFillFields);
 
     const user = await User.findOne({ where: { email } });
 
+    if (AllFillFields)
+      return res.redirect(
+        `/admin/users/${user.id}/edit?error=${AllFillFields.error}`
+      );
+
     if (!user)
-      return res.render("session/login", {
-        error: "Faça Login para acessar essa página.",
-      });
+      return res.redirect(
+        `/admin/users/${req.body.id}/edit?error=Não encontramos o usúario dono desse email`
+      );
 
     const passed = await compare(password, user.password);
 
     if (!passed)
-      return res.render("admin/users/create", { error: "Senha incorreta" });
+      return res.redirect(`/admin/users/${user.id}/edit?error=Senha incorreta`);
 
     if (req.body.removed_files) {
       let removedFiles = req.body.removed_files.split(","); // [1, 2, 3,]

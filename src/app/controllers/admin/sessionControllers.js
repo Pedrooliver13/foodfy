@@ -31,7 +31,7 @@ module.exports = {
 
     req.session.userId = user.id;
 
-    return res.redirect("/admin/users/profile");
+    return res.redirect(`/admin/users/profile?success=Bem vindo ${user.name}`);
   },
   async logout(req, res) {
     req.session.destroy();
