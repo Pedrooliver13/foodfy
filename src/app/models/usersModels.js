@@ -22,9 +22,8 @@ module.exports = {
       RETURNING id
       `;
 
-    const passwordHash = await hash(data.password, 8); // criptografa as senha;
 
-    const values = [data.name, data.email, passwordHash, data.is_admin, fileId];
+    const values = [data.name, data.email, data.password, data.is_admin, fileId];
 
     const results = await db.query(query, values);
     return results.rows[0].id;

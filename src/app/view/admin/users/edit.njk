@@ -20,14 +20,12 @@
       {# content #}
       {% include "./field.njk" %}
 
+      
+
       <input type="hidden" name="id" value="{{ user.id }}">
     </form>
 
-    <form 
-    id="formDelete" 
-    action="/admin/users/profile?_method=DELETE" 
-    method="POST" 
-    >
+    <form id="formDelete" action="/admin/users/profile?_method=DELETE" method="POST">
 
       <input type="hidden" name="id" value="{{ user.id }}">
     </form>

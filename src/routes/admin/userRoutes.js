@@ -9,7 +9,7 @@ const multer = require("../../app/middlewares/multer");
 const isAdminValidator = require('../../app/validators/isAdmin');
 
 routes
-  .get("/create", UserControllers.create)
+  .get("/create", [isAdminValidator.onlyUsers, isAdminValidator.onlyAdmin],UserControllers.create)
 
   .get("/profile", UserValidator.show, UserControllers.show)
 

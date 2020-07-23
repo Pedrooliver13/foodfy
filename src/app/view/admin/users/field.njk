@@ -38,33 +38,26 @@
     <div>Email</div>
 
     <div>
-      <input 
-        type="email" 
-        name="email" 
-        value="{{ user.email }}"  
-        placeholder="Dígite o email" 
-        onblur="validate.apply(this, 'isEmail')"
-      />
+      <input type="email" name="email" value="{{ user.email }}" placeholder="Dígite o email" onblur="validate.apply(this, 'isEmail')"/>
     </div>
   </div>
 </div>
 
-<div class="input-group">
-  <div class="item">
-    <div>Senha</div>
+{% if user.id %}
+  <div class="input-group">
+    <div class="item">
+      <div>Senha</div>
 
-    <div>
-      <input type="password" name="password" placeholder="Dígite sua senha">
+      <div>
+        <input type="password" name="password" placeholder="Dígite sua senha">
+      </div>
     </div>
   </div>
-</div>
+{% endif %}
 
 <div class="checkboxs">
-  
-  <input type="checkbox" name="is_admin" id="admin" value="true"  
-  {% if user.is_admin == true %} 
-    checked
-  {% endif %}/>
+
+  <input type="checkbox" name="is_admin" id="admin" value="true" {% if user.is_admin == true %} checked="checked" {% endif %}/>
   <label for="admin">
     <strong>
       adminstrador

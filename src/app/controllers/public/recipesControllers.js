@@ -1,4 +1,4 @@
-const { userId } = require("../../../lib/utils");
+const { userId, imageName } = require("../../../lib/utils");
 
 const Recipes = require("../../models/recipes");
 const File = require("../../models/files");
@@ -38,10 +38,7 @@ module.exports = {
 
     files = files.map((file) => ({
       ...file,
-      src: `${req.protocol}://${req.headers.host}${file.path.replace(
-        "public",
-        ""
-      )}`,
+      src: imageName(req, file.path),
     }));
     await Promise.all(files);
 

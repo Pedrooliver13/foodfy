@@ -3,25 +3,68 @@ const { imageName } = require("../../../lib/utils");
 const User = require("../../models/usersModels");
 const File = require("../../models/files");
 
+const {hash} = require('bcryptjs');
+const mailer = require('../../../lib/mailer');
+
 module.exports = {
   create(req, res) {
     return res.render("admin/users/create");
   },
   async post(req, res) {
     try {
+      const { name, email, is_admin } = req.body;
+      // enviar o email com a senha do usuário;
+      let defaultPassword = "123";
+      const password = await hash('123', 8);
+
+
+      await mailer.sendMail({
+        to: req.body.email,
+        from: "no-replay@foodfy.com",
+        subject: "Acesso ao sistema",
+        html: `
+        <h2>Seja bem vindo ao foodfy</h2>
+        <div>
+          <p>Não se preocupe, sua senha já foi criada. OBS: Você pode mudar quando quiser; </p>
+          <p>Senha: ${defaultPassword} </p>
+
+          <a href="http://localhost:3000/login" target="_blank">Entrar na conta</a>
+        </div>
+      `,
+      })
+
       // salvando imagens;
-      let results = req.files.map((file) => File.create(file));
-      const files = await Promise.all(results);
+      if (req.files != '') {
+        let results = req.files.map((file) => File.create(file));
+        const files = await Promise.all(results);
 
-      files.map(async (file) => {
-        const user = await User.create(req.body, file.rows[0].id);
+        files.map(async (file) => {
+          const user = await User.create({
+            email,
+            password,
+            name,
+            is_admin
+          }, file.rows[0].id);
 
-        req.session.userId = user;
+          req.session.userId = user;
+        });
+
+        return res.redirect("/users?success=conta criada com sucesso");
+      }
+
+      const user = await User.create({
+        email,
+        name,
+        password,
+        is_admin
       });
+      req.session.userId = user;
 
-      return res.redirect("/users");
+      return res.redirect("/users?success=conta criada com sucesso");
+
     } catch (err) {
       console.error(err);
+
       return res.render("public/chefs/index", {
         error: "Aconteceu algum erro",
       });
@@ -65,19 +108,17 @@ module.exports = {
       if (req.files.length != 0) {
         const newFilePromise = req.files.map((file) => File.create(file));
         let files = await Promise.all(newFilePromise);
-  
-        files = files.map((file) => {
-          fields.file_id = file.rows[0].id;
-  
-          return User.update(id, fields);
-        });
-        await Promise.all(files);
-      }
 
+        files = files.map(async (file) => {
+          fields.file_id = file.rows[0].id;
+
+          return await User.update(id, fields);
+        });
+      }
 
       await User.update(id, fields);
 
-      return res.redirect("/admin/users/profile");
+      return res.redirect("/users?success=Conta Atualizada com sucesso");
     } catch (error) {
       console.error(error);
     }
@@ -88,7 +129,7 @@ module.exports = {
     try {
       await User.delete(req.body.id);
 
-      return res.redirect('/?success="conta-deletada-com-successo"');
+      return res.redirect('/?success=Conta deletada com successo"');
     } catch (error) {
       console.error(error);
     }

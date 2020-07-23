@@ -46,9 +46,9 @@ async function index(req, res, next) {
 }
 
 async function create(req, res, next) {
-  const { name, email, password } = req.body;
+  const { name, email } = req.body;
 
-  const AllFillFields = checkAllFields({ name, email, password });
+  const AllFillFields = checkAllFields({ name, email });
   if (AllFillFields) return res.render("admin/users/create", AllFillFields);
 
   const user = await User.findOne({ where: { email } });
@@ -71,15 +71,19 @@ async function show(req, res, next) {
       error: "Usúario não encontrado",
     });
 
-  const results = await File.find(user.file_id);
-  const files = results.rows.map((file) => ({
-    ...file,
-    src: imageName(req, file.path),
-  }));
+  if(user.file_id) {
+    const results = await File.find(user.file_id);
+    const files = results.rows.map((file) => ({
+      ...file,
+      src: imageName(req, file.path),
+    }));
+  
+    await Promise.all(files);
+    
+    req.files = files;
+  }
+  
 
-  await Promise.all(files);
-
-  req.files = files;
   req.user = user;
 
   next();

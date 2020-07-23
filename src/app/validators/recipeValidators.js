@@ -23,7 +23,7 @@ async function index(req, res, next) {
   results = await Recipes.pagination(params);
   const recipes = results.rows;
 
-  if (!recipes) return res.redirect("/");
+  if (recipes == '') return res.redirect("/?error=Não encontramos nenhuma receita");
 
   // passando os recipes, e vamos modificar apenas os files;
   const files = recipes.map(async (recipe) => {

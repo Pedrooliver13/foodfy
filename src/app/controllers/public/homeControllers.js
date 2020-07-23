@@ -1,5 +1,3 @@
-const { formatBRL } = require('../../../lib/utils');
-
 const User = require('../../models/usersModels');
 
 const Recipes = require('../../models/recipes');
@@ -17,7 +15,7 @@ async function userId(session) {
 
 module.exports = {
   async index(req, res) {
-    const { success } = req.query;
+    const { success, error } = req.query;
     
     try {
       
@@ -52,7 +50,7 @@ module.exports = {
 
       let lastAdded = await Promise.all(recipesPromise);
 
-      return res.render("public/home/index", { recipes: lastAdded, user, success });
+      return res.render("public/home/index", { recipes: lastAdded, user, success, error });
 
     } catch (error) {
       console.error(error);
